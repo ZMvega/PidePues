@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">PidePues</string>
+
+    <!-- Accesibilidad -->
+    <string name="cd_logo">Logo de PidePues</string>
+    <string name="cd_back">Volver</string>
+    <string name="cd_change_photo">Cambiar foto de perfil</string>
+
+    <!-- Splash -->
+    <string name="splash_tagline">CERCANO · CALIFICADO · RÁPIDO</string>
+
+    <!-- Campos compartidos -->
+    <string name="label_email">Correo electrónico</string>
+    <string name="label_password">Contraseña</string>
+    <string name="hint_email">tu@email.com</string>
+
+    <!-- Inicio de sesión -->
+    <string name="login_title">Bienvenido\nde nuevo 👋</string>
+    <string name="login_subtitle">Inicia sesión para pedir tu comida favorita</string>
+    <string name="hint_password_login">••••••••</string>
+    <string name="login_forgot">¿Olvidaste tu contraseña?</string>
+    <string name="login_button">Iniciar Sesión</string>
+    <string name="login_or_continue">o continúa con</string>
+    <string name="login_google">Continuar con Google</string>
+    <string name="login_no_account">¿No tienes cuenta?</string>
+    <string name="login_register_link">Regístrate gratis</string>
+
+    <!-- Registro -->
+    <string name="register_title">Crea tu cuenta 🍽️</string>
+    <string name="register_subtitle">Únete y descubre los mejores restaurantes cerca de ti</string>
+    <string name="label_full_name">Nombre completo</string>
+    <string name="label_phone">Teléfono celular</string>
+    <string name="hint_full_name">Carlos Rodríguez</string>
+    <string name="hint_phone">+57 300 000 0000</string>
+    <string name="hint_password_register">Mínimo 8 caracteres</string>
+    <string name="register_terms"><![CDATA[Acepto los <font color="#F04E23"><b>Términos de servicio</b></font> y la <font color="#F04E23"><b>Política de privacidad</b></font>]]></string>
+    <string name="register_button">Crear cuenta</string>
+    <string name="register_have_account">¿Ya tienes cuenta?</string>
+    <string name="register_login_link">Inicia sesión</string>
+
+    <!-- Perfil -->
+    <string name="profile_title">Mi perfil</string>
+    <string name="profile_edit">Editar</string>
+    <string name="profile_initials">CR</string>
+    <string name="profile_name">Carlos Rodríguez</string>
+    <string name="profile_email">carlos@email.com</string>
+    <string name="profile_phone">+57 312 445 8821</string>
+
+    <string name="emoji_orders">🛵</string>
+    <string name="emoji_favorites">💖</string>
+    <string name="emoji_rating">⭐</string>
+    <string name="emoji_gold">🏆</string>
+    <string name="stat_orders_value">12</string>
+    <string name="stat_orders_label">Pedidos</string>
+    <string name="stat_favorites_value">4</string>
+    <string name="stat_favorites_label">Favoritos</string>
+    <string name="stat_rating_value">4.8</string>
+    <string name="stat_rating_label">Calificación</string>
+
+    <string name="gold_title">PidePues Gold</string>
+    <string name="gold_points">60/100 pts</string>
+
+    <string name="section_account">Mi cuenta</string>
+    <string name="section_preferences">Preferencias</string>
+    <string name="section_support">Soporte</string>
+
+    <string name="opt_addresses_title">Mis direcciones</string>
+    <string name="opt_addresses_subtitle">2 guardadas</string>
+    <string name="opt_payments_title">Métodos de pago</string>
+    <string name="opt_payments_subtitle">Visa •••• 4521</string>
+    <string name="opt_favorites_title">Favoritos</string>
+    <string name="opt_favorites_subtitle">4 restaurantes</string>
+    <string name="opt_history_title">Historial de pedidos</string>
+    <string name="opt_history_subtitle">12 pedidos</string>
+    <string name="opt_notifications_title">Notificaciones</string>
+    <string name="opt_notifications_subtitle">Activadas</string>
+    <string name="opt_settings_title">Configuración</string>
+    <string name="opt_settings_subtitle">Idioma, privacidad</string>
+    <string name="opt_help_title">Centro de ayuda</string>
+    <string name="opt_help_subtitle">FAQ y contacto</string>
+    <string name="opt_terms_title">Términos y privacidad</string>
+    <string name="opt_terms_subtitle">Versión 2.1.0</string>
+
+    <string name="profile_logout">Cerrar sesión</string>
+    <string name="profile_footer">PidePues v1.0.0 · Medellín, Colombia 🇨🇴</string>
+</resources>

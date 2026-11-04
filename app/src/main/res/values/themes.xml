@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Material 3 claro (desciende de AppCompat, así evitas el error del tema).
+         El nombre debe coincidir con android:theme del AndroidManifest. -->
+    <style name="Theme.PidePues" parent="Theme.Material3.Light.NoActionBar">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorOnPrimary">@color/surface</item>
+        <item name="android:windowBackground">@color/surface</item>
+    </style>
+</resources>
