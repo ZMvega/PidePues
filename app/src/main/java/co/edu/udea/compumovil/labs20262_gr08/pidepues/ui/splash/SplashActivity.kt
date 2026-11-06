@@ -10,7 +10,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import co.edu.udea.compumovil.labs20262_gr08.pidepues.databinding.ActivitySplashBinding
 import co.edu.udea.compumovil.labs20262_gr08.pidepues.ui.auth.LoginActivity
-import co.edu.udea.compumovil.pidepues.util.applySystemBarsInsets
+import co.edu.udea.compumovil.labs20262_gr08.pidepues.util.applySystemBarsInsets
 
 class SplashActivity : AppCompatActivity() {
 
