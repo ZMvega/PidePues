@@ -6,7 +6,7 @@ import co.edu.udea.compumovil.labs20262_gr08.pidepues.model.Restaurant
 /**
  * Fuente de datos de restaurantes.
  *
- * Por ahora son datos de EJEMPLO alrededor de El Poblado (Medellín). En las semanas de
+ * Por ahora son datos quemados alrededor de El Poblado, Medellín. En proximas semanas de
  * nube/pedidos se reemplaza el cuerpo de [getRestaurants] por la lectura real
  * (Firebase, API, etc.) sin tocar el resto de la app.
  */
