@@ -6,5 +6,7 @@
         <item name="colorPrimary">@color/primary</item>
         <item name="colorOnPrimary">@color/surface</item>
         <item name="android:windowBackground">@color/surface</item>
+        <item name="colorSecondaryContainer">@color/tile_orange</item>
+        <item name="colorOnSecondaryContainer">@color/primary</item>
     </style>
 </resources>
