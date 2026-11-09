@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="240dp"
+    android:height="240dp"
+    android:viewportWidth="240"
+    android:viewportHeight="240">
+
+    <!-- Recorte circular del mapa -->
+    <clip-path
+        android:pathData="M120,120 m-110,0 a110,110 0 1,0 220,0 a110,110 0 1,0 -220,0" />
+
+    <!-- 1. Fondo original estilo Google Maps -->
+    <path
+        android:pathData="M0,0 H240 V240 H0 Z"
+        android:fillColor="#E8F1F8" />
+
+    <!-- 2. Bloques urbanos originales -->
+    <path
+        android:pathData="M10,10 L105,10 L105,105 L10,105 Z"
+        android:fillColor="#D9E2EC" />
+
+    <path
+        android:pathData="M135,10 L230,10 L230,105 L135,105 Z"
+        android:fillColor="#D9E2EC" />
+
+    <path
+        android:pathData="M10,135 L105,135 L105,230 L10,230 Z"
+        android:fillColor="#CEEAD6" />
+
+    <path
+        android:pathData="M135,135 L230,135 L230,230 L135,230 Z"
+        android:fillColor="#D9E2EC" />
+
+    <!-- 3. Avenidas blancas originales -->
+    <path
+        android:pathData="M120,0 V240"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="18" />
+
+    <path
+        android:pathData="M0,120 H240"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="18" />
+
+    <path
+        android:pathData="M0,40 L240,200"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="14" />
+
+    <!-- 4. Cuadrícula gris discontinua -->
+    <!-- Las líneas se detienen en 20 y 220 para evitar los bordes -->
+
+    <path
+        android:pathData="
+            M40,20 V30
+            M40,38 V48
+            M40,56 V66
+            M40,74 V84
+            M40,92 V102
+            M40,110 V130
+            M40,138 V148
+            M40,156 V166
+            M40,174 V184
+            M40,192 V202
+            M40,210 V220
+
+            M80,20 V30
+            M80,38 V48
+            M80,56 V66
+            M80,74 V84
+            M80,92 V102
+            M80,110 V130
+            M80,138 V148
+            M80,156 V166
+            M80,174 V184
+            M80,192 V202
+            M80,210 V220
+
+            M160,20 V30
+            M160,38 V48
+            M160,56 V66
+            M160,74 V84
+            M160,92 V102
+            M160,110 V130
+            M160,138 V148
+            M160,156 V166
+            M160,174 V184
+            M160,192 V202
+            M160,210 V220
+
+            M200,20 V30
+            M200,38 V48
+            M200,56 V66
+            M200,74 V84
+            M200,92 V102
+            M200,110 V130
+            M200,138 V148
+            M200,156 V166
+            M200,174 V184
+            M200,192 V202
+            M200,210 V220
+
+            M20,40 H30
+            M38,40 H48
+            M56,40 H66
+            M74,40 H84
+            M92,40 H102
+            M110,40 H130
+            M138,40 H148
+            M156,40 H166
+            M174,40 H184
+            M192,40 H202
+            M210,40 H220
+
+            M20,80 H30
+            M38,80 H48
+            M56,80 H66
+            M74,80 H84
+            M92,80 H102
+            M110,80 H130
+            M138,80 H148
+            M156,80 H166
+            M174,80 H184
+            M192,80 H202
+            M210,80 H220
+
+            M20,160 H30
+            M38,160 H48
+            M56,160 H66
+            M74,160 H84
+            M92,160 H102
+            M110,160 H130
+            M138,160 H148
+            M156,160 H166
+            M174,160 H184
+            M192,160 H202
+            M210,160 H220
+
+            M20,200 H30
+            M38,200 H48
+            M56,200 H66
+            M74,200 H84
+            M92,200 H102
+            M110,200 H130
+            M138,200 H148
+            M156,200 H166
+            M174,200 H184
+            M192,200 H202
+            M210,200 H220"
+        android:strokeColor="#A0A6AD"
+        android:strokeWidth="1"
+        android:strokeAlpha="0.55" />
+
+    <!-- Sin borde circular naranja -->
+
+</vector>

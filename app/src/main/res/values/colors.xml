@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Marca -->
+    <color name="primary">#F04E23</color>
+    <color name="primary_dark">#D63F16</color>
+    <color name="primary_disabled">#F8B9A6</color>
+    <color name="splash_start">#F2541F</color>
+    <color name="splash_end">#A92F0F</color>
+    <color name="header_start">#F2552A</color>
+    <color name="header_end">#CF3F17</color>
+
+    <!-- Texto -->
+    <color name="ink">#0F172A</color>
+    <color name="ink_soft">#374151</color>
+    <color name="muted">#6B7280</color>
+    <color name="hint">#9CA3AF</color>
+
+    <!-- Superficies -->
+    <color name="surface">#FFFFFF</color>
+    <color name="surface_screen">#F4F5F7</color>
+    <color name="field_bg">#F8F9FB</color>
+    <color name="field_stroke">#EEF0F4</color>
+    <color name="divider">#F1F2F4</color>
+    <color name="outline">#E5E7EB</color>
+    <color name="circle_gray">#F3F4F6</color>
+
+    <!-- Blancos translúcidos (splash y cabecera del perfil) -->
+    <color name="white_12">#1FFFFFFF</color>
+    <color name="white_20">#33FFFFFF</color>
+    <color name="white_80">#CCFFFFFF</color>
+
+    <!-- Acentos -->
+    <color name="gold">#FFB020</color>
+    <color name="danger">#EF4444</color>
+
+    <!-- Fondos de los iconos del perfil -->
+    <color name="tile_orange">#FEEDE7</color>
+    <color name="tile_blue">#E8F0FE</color>
+    <color name="tile_pink">#FDE8EE</color>
+    <color name="tile_amber">#FFF3E0</color>
+    <color name="tile_green">#E7F8EE</color>
+    <color name="tile_gray">#F1F2F4</color>
+    <color name="tile_red">#FDECEC</color>
+
+    <!-- Colores de los iconos del perfil -->
+    <color name="icon_blue">#3B82F6</color>
+    <color name="icon_pink">#F43F5E</color>
+    <color name="icon_green">#22C55E</color>
+</resources>

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="210dp"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="@color/surface"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="8dp"
+    app:strokeColor="#E5E7EB"
+    app:strokeWidth="1dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="6dp">
+
+        <!-- Opción 1: Recomendados -->
+        <LinearLayout
+            android:id="@+id/popOptRecomendados"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:background="?attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="🎯"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tvTextRecomendados"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:text="Recomendados"
+                android:textColor="@color/primary"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/ivCheckRecomendados"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:contentDescription="Seleccionado"
+                android:src="@drawable/ic_check"
+                app:tint="@color/primary" />
+        </LinearLayout>
+
+        <!-- Opción 2: Más cercano -->
+        <LinearLayout
+            android:id="@+id/popOptCercano"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:background="?attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="📍"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tvTextCercano"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:text="Más cercano"
+                android:textColor="@color/ink"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/ivCheckCercano"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:contentDescription="Seleccionado"
+                android:src="@drawable/ic_check"
+                android:visibility="gone"
+                app:tint="@color/primary" />
+        </LinearLayout>
+
+        <!-- Opción 3: Mejor calificación -->
+        <LinearLayout
+            android:id="@+id/popOptMejorNota"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:background="?attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="⭐"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tvTextMejorNota"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:text="Mejor calificación"
+                android:textColor="@color/ink"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/ivCheckMejorNota"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:contentDescription="Seleccionado"
+                android:src="@drawable/ic_check"
+                android:visibility="gone"
+                app:tint="@color/primary" />
+        </LinearLayout>
+
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

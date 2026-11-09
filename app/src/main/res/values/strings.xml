@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">PidePues</string>
+
+    <!-- Accesibilidad -->
+    <string name="cd_logo">Logo de PidePues</string>
+    <string name="cd_back">Volver</string>
+    <string name="cd_change_photo">Cambiar foto de perfil</string>
+    <string name="cd_check_icon">Confirmado</string>
+    <string name="cd_restaurant_icon">Restaurante</string>
+    <string name="cd_time_icon">Tiempo</string>
+    <string name="cd_location_icon">Ubicación</string>
+    <string name="cd_driver_avatar">Repartidor</string>
+    <string name="cd_call_icon">Llamar</string>
+    <string name="cd_chat_icon">Chat</string>
+    <string name="cd_bell_icon">Notificaciones</string>
+
+    <!-- Navegación Inferior -->
+    <string name="nav_home">Inicio</string>
+    <string name="nav_search">Buscar</string>
+    <string name="nav_orders">Pedidos</string>
+    <string name="nav_profile">Perfil</string>
+
+    <!-- Splash -->
+    <string name="splash_tagline">CERCANO · CALIFICADO · RÁPIDO</string>
+
+    <!-- Campos compartidos -->
+    <string name="label_email">Correo electrónico</string>
+    <string name="label_password">Contraseña</string>
+    <string name="hint_email">tu@email.com</string>
+
+    <!-- Inicio de sesión -->
+    <string name="login_title">Bienvenido\nde nuevo 👋</string>
+    <string name="login_subtitle">Inicia sesión para pedir tu comida favorita</string>
+    <string name="hint_password_login">••••••••</string>
+    <string name="login_forgot">¿Olvidaste tu contraseña?</string>
+    <string name="login_button">Iniciar Sesión</string>
+    <string name="login_or_continue">o continúa con</string>
+    <string name="login_google">Continuar con Google</string>
+    <string name="login_no_account">¿No tienes cuenta?</string>
+    <string name="login_register_link">Regístrate gratis</string>
+
+    <!-- Registro -->
+    <string name="register_title">Crea tu cuenta 🍽️</string>
+    <string name="register_subtitle">Únete y descubre los mejores restaurantes cerca de ti</string>
+    <string name="label_full_name">Nombre completo</string>
+    <string name="label_phone">Teléfono celular</string>
+    <string name="hint_full_name">Carlos Rodríguez</string>
+    <string name="hint_phone">+57 300 000 0000</string>
+    <string name="hint_password_register">Mínimo 8 caracteres</string>
+    <string name="register_terms"><![CDATA[Acepto los <font color="#F04E23"><b>Términos de servicio</b></font> y la <font color="#F04E23"><b>Política de privacidad</b></font>]]></string>
+    <string name="register_button">Crear cuenta</string>
+    <string name="register_have_account">¿Ya tienes cuenta?</string>
+    <string name="register_login_link">Inicia sesión</string>
+
+    <!-- Perfil -->
+    <string name="profile_title">Mi perfil</string>
+    <string name="profile_edit">Editar</string>
+    <string name="profile_initials">CR</string>
+    <string name="profile_name">Carlos Rodríguez</string>
+    <string name="profile_email">carlos@email.com</string>
+    <string name="profile_phone">+57 312 445 8821</string>
+
+    <string name="emoji_orders">🛵</string>
+    <string name="emoji_favorites">💖</string>
+    <string name="emoji_rating">⭐</string>
+    <string name="emoji_gold">🏆</string>
+    <string name="emoji_package">📦</string>
+    <string name="emoji_location">📍</string>
+    <string name="emoji_payment">💳</string>
+    <string name="emoji_heart">💖</string>
+
+    <string name="stat_orders_value">12</string>
+    <string name="stat_orders_label">Pedidos</string>
+    <string name="stat_favorites_value">4</string>
+    <string name="stat_favorites_label">Favoritos</string>
+    <string name="stat_rating_value">4.8</string>
+    <string name="stat_rating_label">Calificación</string>
+
+    <string name="gold_title">PidePues Gold</string>
+    <string name="gold_points">60/100 pts</string>
+
+    <string name="section_account">Mi cuenta</string>
+    <string name="section_preferences">Preferencias</string>
+    <string name="section_support">Soporte</string>
+
+    <string name="opt_addresses_title">Mis direcciones</string>
+    <string name="opt_addresses_subtitle">2 guardadas</string>
+    <string name="opt_payments_title">Métodos de pago</string>
+    <string name="opt_payments_subtitle">Visa •••• 4521</string>
+    <string name="opt_favorites_title">Favoritos</string>
+    <string name="opt_favorites_subtitle">4 restaurantes</string>
+    <string name="opt_history_title">Historial de pedidos</string>
+    <string name="opt_history_subtitle">12 pedidos</string>
+    <string name="opt_notifications_title">Notificaciones</string>
+    <string name="opt_notifications_subtitle">Activadas</string>
+    <string name="opt_settings_title">Configuración</string>
+    <string name="opt_settings_subtitle">Idioma, privacidad</string>
+    <string name="opt_help_title">Centro de ayuda</string>
+    <string name="opt_help_subtitle">FAQ y contacto</string>
+    <string name="opt_terms_title">Términos y privacidad</string>
+    <string name="opt_terms_subtitle">Versión 2.1.0</string>
+
+    <string name="profile_logout">Cerrar sesión</string>
+    <string name="profile_footer">PidePues v1.0.0 · Medellín, Colombia 🇨🇴</string>
+
+    <!-- Home / Inicio -->
+    <string name="home_greeting">¡Hola, Carlos! 👋</string>
+    <string name="home_location">El Poblado, Medellín</string>
+    <string name="home_search_hint">Busca restaurantes o platillos...</string>
+    <string name="home_banner_title">🎉 ¡Envío gratis hoy!</string>
+    <string name="home_banner_sub">En restaurantes con ⭐ 4.5+</string>
+    <string name="home_banner_btn">Aplicar</string>
+    <string name="home_cat_all">Todos</string>
+    <string name="home_cat_nearby">📍 Cercanos</string>
+    <string name="home_cat_top">⭐ Mejor Nota</string>
+    <string name="home_cat_fast">⚡ Rápidos</string>
+    <string name="home_sort_label">🎯 Ordenados por cercanía + calificación</string>
+    <string name="home_recommended_header">Recomendados para ti</string>
+    <string name="home_see_all">Ver todos</string>
+
+    <!-- Pantalla Mis Pedidos -->
+    <string name="orders_screen_title">Mis pedidos</string>
+    <string name="orders_tab_in_progress">🚀 En curso</string>
+    <string name="orders_tab_history">📋 Historial</string>
+    <string name="single_active_order_footer">Toca para ver el seguimiento en vivo</string>
+    <string name="badge_on_the_way">En camino</string>
+    <string name="btn_view_live_tracking">Ver seguimiento en vivo</string>
+
+    <!-- Calificar pedido -->
+    <string name="rate_order_title">Calificar pedido</string>
+    <string name="rating_question">¿Cómo estuvo tu experiencia?</string>
+    <string name="rating_subtitle">Toca las estrellas para calificar</string>
+    <string name="btn_submit_rating">Enviar calificación</string>
+
+    <!-- Botones de Tarjeta de Pedido -->
+    <string name="btn_rate">Calificar</string>
+    <string name="btn_reorder">Volver a pedir</string>
+
+    <!-- Confirmación de pedido -->
+    <string name="order_confirmed_title">¡Pedido confirmado!</string>
+    <string name="order_confirmed_subtitle">Tu comida está en camino 🚀</string>
+    <string name="order_number_label">NÚMERO DE PEDIDO</string>
+    <string name="order_status_confirmed">Confirmado</string>
+
+    <string name="label_restaurant">Restaurante</string>
+    <string name="label_estimated_time">Tiempo estimado</string>
+    <string name="label_delivery_address">Dirección de entrega</string>
+
+    <string name="default_order_number">#PP-5477</string>
+    <string name="default_restaurant_name">Burger Bros</string>
+    <string name="default_estimated_time">30–40 minutos</string>
+    <string name="default_delivery_address">Cra 43 #1-15, El Poblado, Medellín</string>
+
+    <string name="default_driver_name">Andrés M. — Tu repartidor</string>
+    <string name="default_driver_full_name">Andrés Martínez</string>
+    <string name="default_driver_rating">⭐ ⭐ ⭐ ⭐ ⭐ 4.9 · 1,240 entregas</string>
+
+    <string name="btn_track_order">Seguir mi pedido en vivo</string>
+    <string name="btn_go_home">Volver al inicio</string>
+
+    <!-- Seguimiento del pedido -->
+    <string name="tracking_title">Seguimiento</string>
+    <string name="tracking_eta_label">Llega en</string>
+    <string name="tracking_eta_value">15 min</string>
+    <string name="tracking_status_on_the_way">En camino</string>
+    <string name="tracking_status_on_the_way_sub">Andrés está llevando tu pedido</string>
+    <string name="tracking_status_delivered">Entregado</string>
+    <string name="tracking_status_delivered_sub">¡Buen provecho!</string>
+
+    <string name="tracking_progress_header">Progreso del pedido</string>
+    <string name="tracking_step1_title">Pedido confirmado</string>
+    <string name="tracking_step1_desc">Tu pedido fue recibido</string>
+    <string name="tracking_step1_time">2:45 PM</string>
+
+    <string name="tracking_step2_title">Preparando tu pedido</string>
+    <string name="tracking_step2_desc">El restaurante está cocinando</string>
+    <string name="tracking_step2_time">2:48 PM</string>
+
+    <string name="tracking_step3_title">En camino</string>
+    <string name="tracking_step3_desc">Andrés está llevando tu pedido</string>
+
+    <string name="tracking_step4_title">Entregado</string>
+    <string name="tracking_step4_desc">¡Buen provecho!</string>
+
+    <string name="tracking_in_progress">En progreso...</string>
+    <string name="tracking_driver_subtitle">Tu repartidor · ⭐ 4.9</string>
+    <string name="btn_rate_order">¡Calificar pedido! ⭐</string>
+
+    <!-- Estados e Historial de Pedidos -->
+    <string name="status_canceled">Cancelado</string>
+    <string name="status_delivered">Entregado</string>
+    <string name="eta_prefix">Llega en</string>
+
+    <!-- Portal Restaurantes -->
+    <string name="restaurant_portal_subtitle">RESTAURANTES</string>
+    <string name="restaurant_portal_tagline">Gestiona tu negocio en tiempo real</string>
+    <string name="restaurant_login_profile">PERFIL RESTAURANTE</string>
+    <string name="restaurant_login_title">Bienvenido de nuevo a tu cocina</string>
+    <string name="restaurant_login_subtitle">Ingresa para gestionar pedidos, menú y ventas.</string>
+    <string name="label_business_email">Correo del negocio</string>
+    <string name="hint_business_email">pepe@parrilla.co</string>
+    <string name="btn_restaurant_login">Iniciar sesión</string>
+    <string name="restaurant_no_account">¿Aún no tienes cuenta?</string>
+    <string name="btn_register_restaurant">Registrar mi restaurante</string>
+    <string name="register_business_title">Registra tu negocio</string>
+    <string name="register_business_step">Paso 1 de 2 · Datos del restaurante</string>
+    <string name="logo_upload_title">Logo del restaurante</string>
+    <string name="logo_upload_sub">Toca el recuadro para cargarlo. PNG o JPG, 512 px.</string>
+    <string name="label_business_name">Nombre del negocio</string>
+    <string name="hint_business_name">Ej. La Parrilla de Don Pepe</string>
+    <string name="label_business_phone">Teléfono</string>
+    <string name="hint_business_phone">+57 300 000 0000</string>
+    <string name="label_business_address">Dirección</string>
+    <string name="hint_business_address">Calle, número, barrio, ciudad</string>
+    <string name="geolocation_header">Geolocalización de la sede</string>
+    <string name="geolocation_empty">Aún no has fijado la ubicación</string>
+    <string name="btn_use_my_location">Usar mi ubicación</string>
+    <string name="operating_hours_header">Horario de atención</string>
+    <string name="btn_create_menu">Crear y configurar menú</string>
+</resources>

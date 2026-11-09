@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.PidePues">
+
+        <!-- Splash Screen -->
+        <activity
+            android:name=".ui.splash.SplashActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Autenticación y Ubicación -->
+        <activity
+            android:name=".ui.auth.LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.auth.RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.location.LocationPermissionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.location.DeliveryAddressActivity"
+            android:exported="false" />
+
+        <!-- Flujo Principal -->
+        <activity
+            android:name=".ui.home.HomeActivity"
+            android:exported="false" />
+
+        <!-- Búsqueda y Filtros -->
+        <activity
+            android:name=".ui.search.SearchActivity"
+            android:exported="false"
+            android:windowSoftInputMode="stateVisible|adjustResize" />
+        <activity
+            android:name=".ui.filter.FilterActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ui.results.ResultsActivity"
+            android:exported="false" />
+
+        <!-- Restaurante, Menú y Detalle -->
+        <activity
+            android:name=".ui.restaurant.RestaurantProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.restaurant.RestaurantMenuActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.restaurant.ProductDetailActivity"
+            android:exported="false" />
+
+        <!-- Carrito de Compras -->
+        <activity
+            android:name=".ui.cart.CartActivity"
+            android:exported="false" />
+
+        <!-- Métodos de Pago, Confirmación y Seguimiento -->
+        <activity
+            android:name=".ui.payment.PaymentMethodActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.payment.OrderConfirmationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.payment.OrderTrackingActivity"
+            android:exported="false" />
+
+        <!-- Mis Pedidos / Historial -->
+        <activity
+            android:name=".ui.orders.OrdersActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.orders.RateOrderActivity"
+            android:exported="false" />
+
+        <!-- Perfil del Usuario -->
+        <activity
+            android:name=".ui.profile.ProfileActivity"
+            android:exported="false" />
+
+        <!-- Portal Restaurantes -->
+        <activity
+            android:name=".ui.restaurantportal.RestaurantSplashActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.restaurantportal.RestaurantLoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.restaurantportal.RestaurantRegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.restaurantportal.RestaurantDashboardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.restaurantportal.RestaurantMenuManagementActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.restaurantportal.RestaurantAddProductActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.restaurantportal.RestaurantOrdersManagementActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.restaurantportal.RestaurantOrderDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.restaurantportal.RestaurantSalesHistoryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.restaurantportal.RestaurantReviewsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.restaurantportal.RestaurantProfileSettingsActivity"
+            android:exported="false" />
+
+    </application>
+
+</manifest>
