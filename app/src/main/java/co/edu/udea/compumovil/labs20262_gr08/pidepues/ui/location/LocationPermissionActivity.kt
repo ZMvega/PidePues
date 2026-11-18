@@ -1,5 +1,3 @@
-package co.edu.udea.compumovil.labs20262_gr08.pidepues.ui.location
-
 
 import android.Manifest
 import android.content.Context
@@ -75,6 +73,8 @@ class LocationPermissionActivity : AppCompatActivity() {
     }
 
     companion object {
-        fun newIntent(context: Context): Intent = Intent(context, LocationPermissionActivity::class.java)
+        fun newIntent(context: Context): Intent =
+            Intent(context, LocationPermissionActivity::class.java)
+                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
     }
 }

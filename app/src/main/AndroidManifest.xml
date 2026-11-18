@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- permisos de ubicacion mientras se usa la app -->
+    <!-- Ubicación: solo mientras se usa la app -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-feature
@@ -20,38 +20,16 @@
         android:theme="@style/Theme.PidePues"
         tools:targetApi="31">
 
-        <!-- Pantalla de arranque -->
+        <!-- Única Activity: todas las pantallas son composables dentro de un NavHost -->
         <activity
-            android:name=".ui.splash.SplashActivity"
-            android:exported="true">
+            android:name=".ui.main.MainActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <!-- Autenticación -->
-        <activity
-            android:name=".ui.auth.LoginActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.auth.RegisterActivity"
-            android:exported="false" />
-
-        <!-- Perfil -->
-        <activity
-            android:name=".ui.profile.ProfileActivity"
-            android:exported="false" />
-
-        <!-- Permiso de ubicacion -->
-        <activity
-            android:name=".ui.location.LocationPermissionActivity"
-            android:exported="false" />
-
-        <!-- App principal: Inicio, Buscar, Carrito y Perfil con barra inferior -->
-        <activity
-            android:name=".ui.main.MainActivity"
-            android:exported="false" />
     </application>
 
 </manifest>
