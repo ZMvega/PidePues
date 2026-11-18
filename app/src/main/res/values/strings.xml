@@ -34,7 +34,10 @@
     <string name="hint_full_name">Carlos Rodríguez</string>
     <string name="hint_phone">+57 300 000 0000</string>
     <string name="hint_password_register">Mínimo 8 caracteres</string>
-    <string name="register_terms"><![CDATA[Acepto los <font color="#F04E23"><b>Términos de servicio</b></font> y la <font color="#F04E23"><b>Política de privacidad</b></font>]]></string>
+    <string name="register_terms_prefix">Acepto los </string>
+    <string name="register_terms_service">Términos de servicio</string>
+    <string name="register_terms_and"> y la </string>
+    <string name="register_terms_privacy">Política de privacidad</string>
     <string name="register_button">Crear cuenta</string>
     <string name="register_have_account">¿Ya tienes cuenta?</string>
     <string name="register_login_link">Inicia sesión</string>
@@ -84,6 +87,7 @@
 
     <string name="profile_logout">Cerrar sesión</string>
     <string name="profile_footer">PidePues v1.0.0 · Medellín, Colombia 🇨🇴</string>
+
     <!-- ===== Barra inferior ===== -->
     <string name="nav_home">Inicio</string>
     <string name="nav_search">Buscar</string>
@@ -92,7 +96,9 @@
 
     <!-- ===== Permiso de ubicación ===== -->
     <string name="location_title">¿Dónde estás? 📍</string>
-    <string name="location_description"><![CDATA[Activa tu ubicación para encontrar los mejores restaurantes cerca de ti, ordenados por <font color="#F04E23"><b>cercanía y calificación</b></font>.]]></string>
+    <string name="location_description_prefix">Activa tu ubicación para encontrar los mejores restaurantes cerca de ti, ordenados por </string>
+    <string name="location_description_highlight">cercanía y calificación</string>
+    <string name="location_description_suffix">.</string>
     <string name="location_privacy_title">Solo cuando usas la app</string>
     <string name="location_privacy_subtitle">Tu ubicación se usa únicamente para encontrar restaurantes cercanos</string>
     <string name="location_allow">Permitir ubicación</string>
@@ -167,6 +173,59 @@
     <!-- ===== Carrito (semana 7) ===== -->
     <string name="cart_emoji">🛍️</string>
     <string name="cart_title">Tu carrito está vacío</string>
-    <string name="cart_subtitle">Aquí verás los platos que agregues. El carrito llega en la semana 7.</string>
+    <string name="cart_subtitle">Agrega platos desde un restaurante y los verás aquí.</string>
 
+    <!-- ===== Firebase: autenticación, roles y errores ===== -->
+    <string name="role_label">Tipo de cuenta</string>
+    <string name="role_client">🍽️ Cliente</string>
+    <string name="role_restaurant">🏪 Restaurante</string>
+    <string name="role_delivery">🛵 Domiciliario</string>
+    <string name="error_name">Escribe tu nombre completo</string>
+    <string name="error_email">Escribe un correo válido</string>
+    <string name="error_phone">Escribe un celular válido (10 dígitos)</string>
+    <string name="error_password">Mínimo 8 caracteres</string>
+    <string name="error_password_required">Escribe tu contraseña</string>
+    <string name="login_loading">Ingresando…</string>
+    <string name="register_loading">Creando cuenta…</string>
+    <string name="auth_error_email_in_use">Ese correo ya tiene una cuenta</string>
+    <string name="auth_error_credentials">Correo o contraseña incorrectos</string>
+    <string name="auth_error_weak_password">La contraseña es muy débil. Usa al menos 8 caracteres</string>
+    <string name="auth_error_too_many">Demasiados intentos. Espera un momento e inténtalo de nuevo</string>
+    <string name="auth_error_network">Sin conexión. Revisa tu internet e inténtalo de nuevo</string>
+    <string name="auth_error_generic">Algo salió mal. Inténtalo de nuevo</string>
+    <string name="reset_enter_email">Escribe tu correo aquí y vuelve a tocar «¿Olvidaste tu contraseña?»</string>
+    <string name="reset_email_sent">Si el correo está registrado, te enviamos un enlace para restablecer tu contraseña</string>
+    <string name="google_soon">El inicio de sesión con Google estará disponible más adelante</string>
+    <string name="role_home_restaurant_title">Panel del restaurante</string>
+    <string name="role_home_restaurant_subtitle">Muy pronto podrás gestionar tu menú y los pedidos que lleguen.</string>
+    <string name="role_home_delivery_title">Panel del domiciliario</string>
+    <string name="role_home_delivery_subtitle">Muy pronto verás aquí los pedidos para entregar.</string>
+
+    <!-- ===== Inicio con datos de la nube ===== -->
+    <string name="home_greeting_name">¡Hola, %1$s! 👋</string>
+    <string name="home_greeting_default">¡Hola! 👋</string>
+    <string name="error_loading_restaurants">No pudimos cargar los restaurantes. Revisa tu conexión.</string>
+    <string name="retry">Reintentar</string>
+    <string name="cancel">Cancelar</string>
+
+    <!-- ===== Detalle del restaurante, menú y carrito (semana 7) ===== -->
+    <string name="menu_title">Menú</string>
+    <string name="menu_empty">Este restaurante aún no tiene platos</string>
+    <string name="error_loading_menu">No pudimos cargar el menú</string>
+    <string name="cd_add">Agregar</string>
+    <string name="cd_remove">Quitar</string>
+    <string name="view_cart_format">Ver carrito (%1$d) · %2$s</string>
+    <string name="cart_replace_title">¿Empezar un carrito nuevo?</string>
+    <string name="cart_replace_message">Tu carrito tiene platos de %1$s. ¿Quieres vaciarlo y pedir de %2$s?</string>
+    <string name="cart_replace_confirm">Vaciar y agregar</string>
+    <string name="cart_screen_title">Mi carrito</string>
+    <string name="cart_clear">Vaciar</string>
+    <string name="cart_explore">Explorar restaurantes</string>
+    <string name="cart_from">Pedido de %1$s</string>
+    <string name="cart_unit_price">%1$s c/u</string>
+    <string name="summary_subtotal">Subtotal</string>
+    <string name="summary_delivery">Envío</string>
+    <string name="summary_total">Total</string>
+    <string name="checkout_format">Continuar con el pedido · %1$s</string>
+    <string name="checkout_coming_soon">La confirmación del pedido llega en la semana 8</string>
 </resources>
