@@ -46,4 +46,24 @@
     <color name="icon_blue">#3B82F6</color>
     <color name="icon_pink">#F43F5E</color>
     <color name="icon_green">#22C55E</color>
+
+    <!-- ===== inicio, búsqueda, filtros y ubicación ===== -->
+    <color name="promo_start">#FFB547</color>
+    <color name="promo_end">#F5622A</color>
+    <color name="scrim_55">#8C000000</color>
+    <color name="white_90">#E6FFFFFF</color>
+    <color name="gold_dot">#FFC83D</color>
+    <color name="peach">#FFF6F3</color>
+    <color name="peach_stroke">#FFE0D5</color>
+    <color name="map_peach">#FFE3D9</color>
+    <color name="map_ring">#FFD0BF</color>
+    <color name="pin_halo">#33F04E23</color>
+
+    <!-- Colores pastel de las tarjetas (mientras no haya fotos reales) -->
+    <color name="food_1">#FFE4D6</color>
+    <color name="food_2">#E3F4E1</color>
+    <color name="food_3">#FFF1C9</color>
+    <color name="food_4">#E6EEFF</color>
+    <color name="food_5">#FCE4EC</color>
+    <color name="food_6">#EDE7F6</color>
 </resources>

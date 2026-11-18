@@ -7,7 +7,7 @@ import androidx.core.text.HtmlCompat
 import co.edu.udea.compumovil.labs20262_gr08.pidepues.R
 import co.edu.udea.compumovil.labs20262_gr08.pidepues.databinding.ActivityRegisterBinding
 import co.edu.udea.compumovil.labs20262_gr08.pidepues.ui.profile.ProfileActivity
-import co.edu.udea.compumovil.pidepues.util.applySystemBarsInsets
+import co.edu.udea.compumovil.labs20262_gr08.pidepues.util.applySystemBarsInsets
 
 class RegisterActivity : AppCompatActivity() {
 

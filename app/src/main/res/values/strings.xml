@@ -84,4 +84,89 @@
 
     <string name="profile_logout">Cerrar sesión</string>
     <string name="profile_footer">PidePues v1.0.0 · Medellín, Colombia 🇨🇴</string>
+    <!-- ===== Barra inferior ===== -->
+    <string name="nav_home">Inicio</string>
+    <string name="nav_search">Buscar</string>
+    <string name="nav_cart">Carrito</string>
+    <string name="nav_profile">Perfil</string>
+
+    <!-- ===== Permiso de ubicación ===== -->
+    <string name="location_title">¿Dónde estás? 📍</string>
+    <string name="location_description"><![CDATA[Activa tu ubicación para encontrar los mejores restaurantes cerca de ti, ordenados por <font color="#F04E23"><b>cercanía y calificación</b></font>.]]></string>
+    <string name="location_privacy_title">Solo cuando usas la app</string>
+    <string name="location_privacy_subtitle">Tu ubicación se usa únicamente para encontrar restaurantes cercanos</string>
+    <string name="location_allow">Permitir ubicación</string>
+    <string name="location_manual">Ingresar dirección manualmente</string>
+    <string name="location_denied_hint">Sin el permiso no podemos ordenar por cercanía. Puedes ingresar tu dirección manualmente.</string>
+    <string name="location_manual_hint">Por ahora usamos El Poblado, Medellín. La búsqueda de direcciones llega más adelante.</string>
+    <string name="cd_map">Ilustración de un mapa con restaurantes cercanos</string>
+
+    <!-- ===== Inicio ===== -->
+    <string name="home_greeting">¡Hola, Carlos! 👋</string>
+    <string name="location_demo_label">El Poblado, Medellín</string>
+    <string name="location_device_label">Tu ubicación actual</string>
+    <string name="home_search_hint">Busca restaurantes o platillos...</string>
+    <string name="cd_notifications">Notificaciones</string>
+    <string name="cd_filters">Filtros</string>
+    <string name="promo_title">🎉 ¡Envío gratis hoy!</string>
+    <string name="promo_subtitle">En restaurantes con ⭐ 4.5+</string>
+    <string name="promo_apply">Aplicar</string>
+    <string name="chip_all">Todos</string>
+    <string name="chip_nearby">📍 Cercanos</string>
+    <string name="chip_best">⭐ Mejor Nota</string>
+    <string name="chip_fast">⚡ Rápido</string>
+    <string name="sort_info_recommended">🎯 Ordenados por cercanía + calificación</string>
+    <string name="sort_info_nearest">📍 Ordenados por distancia</string>
+    <string name="sort_info_best">⭐ Ordenados por calificación</string>
+    <string name="sort_info_fastest">⚡ Ordenados por tiempo de entrega</string>
+    <string name="list_title_recommended">Recomendados para ti</string>
+    <string name="list_title_nearest">Los más cercanos</string>
+    <string name="list_title_best">Mejor calificados</string>
+    <string name="list_title_fastest">Entrega más rápida</string>
+    <string name="see_all">Ver todos</string>
+    <string name="empty_results">No encontramos restaurantes con estos filtros</string>
+    <string name="empty_clear">Limpiar filtros</string>
+    <string name="restaurant_closed">Cerrado · Abre mañana</string>
+    <string name="delivery_minutes">%1$d min</string>
+    <string name="delivery_distance">%1$s km</string>
+    <string name="delivery_fee">$%1$s envío</string>
+    <string name="delivery_free">Envío gratis</string>
+    <string name="menu_coming_soon">El menú de %1$s llegará en la semana 7</string>
+
+    <!-- ===== Buscar ===== -->
+    <string name="search_hint">Restaurantes, platillos, cocinas...</string>
+    <string name="recent_title">Búsquedas recientes</string>
+    <string name="recent_clear">Borrar</string>
+    <string name="explore_title">Explorar por categoría</string>
+    <string name="search_clear">Limpiar</string>
+    <plurals name="results_count">
+        <item quantity="one">%1$d resultado</item>
+        <item quantity="other">%1$d resultados</item>
+    </plurals>
+
+    <!-- ===== Filtros ===== -->
+    <string name="filters_title">Filtros</string>
+    <string name="filters_clear">Limpiar</string>
+    <string name="filters_sort_title">Ordenar por</string>
+    <string name="sort_recommended_title">Recomendados</string>
+    <string name="sort_recommended_subtitle">Cercanía + Calificación</string>
+    <string name="sort_nearest_title">Más cercano</string>
+    <string name="sort_nearest_subtitle">Primero los más próximos</string>
+    <string name="sort_best_title">Mejor calificación</string>
+    <string name="sort_best_subtitle">Mayor puntuación primero</string>
+    <string name="sort_fastest_title">Más rápido</string>
+    <string name="sort_fastest_subtitle">Menor tiempo de entrega</string>
+    <string name="filters_distance_title">Distancia máxima</string>
+    <string name="filters_distance_min">500 m</string>
+    <string name="filters_distance_max">10 km</string>
+    <string name="filters_rating_title">Calificación mínima</string>
+    <string name="rating_all">Todos</string>
+    <string name="filters_cuisine_title">Tipo de cocina</string>
+    <string name="filters_apply">Aplicar filtros</string>
+
+    <!-- ===== Carrito (semana 7) ===== -->
+    <string name="cart_emoji">🛍️</string>
+    <string name="cart_title">Tu carrito está vacío</string>
+    <string name="cart_subtitle">Aquí verás los platos que agregues. El carrito llega en la semana 7.</string>
+
 </resources>

@@ -2,6 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- permisos de ubicacion mientras se usa la app -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-feature
+        android:name="android.hardware.location"
+        android:required="false" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -34,6 +41,16 @@
         <!-- Perfil -->
         <activity
             android:name=".ui.profile.ProfileActivity"
+            android:exported="false" />
+
+        <!-- Permiso de ubicacion -->
+        <activity
+            android:name=".ui.location.LocationPermissionActivity"
+            android:exported="false" />
+
+        <!-- App principal: Inicio, Buscar, Carrito y Perfil con barra inferior -->
+        <activity
+            android:name=".ui.main.MainActivity"
             android:exported="false" />
     </application>
 

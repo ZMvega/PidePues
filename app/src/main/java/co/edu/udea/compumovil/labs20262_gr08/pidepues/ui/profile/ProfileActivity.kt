@@ -14,7 +14,7 @@ import co.edu.udea.compumovil.labs20262_gr08.pidepues.R
 import co.edu.udea.compumovil.labs20262_gr08.pidepues.databinding.ActivityProfileBinding
 import co.edu.udea.compumovil.labs20262_gr08.pidepues.databinding.ItemProfileOptionBinding
 import co.edu.udea.compumovil.labs20262_gr08.pidepues.ui.auth.LoginActivity
-import co.edu.udea.compumovil.pidepues.util.applySystemBarsInsets
+import co.edu.udea.compumovil.labs20262_gr08.pidepues.util.applySystemBarsInsets
 
 class ProfileActivity : AppCompatActivity() {
 
