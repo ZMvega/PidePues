@@ -7,3 +7,9 @@ private val COP: NumberFormat = NumberFormat.getInstance(Locale.forLanguageTag("
 
 /** 28000 -> "$ 28.000" */
 fun Int.toCop(): String = "$ ${COP.format(this)}"
+
+// Convierte un número entero a texto en formato $ COP
+fun Int.toCopNumber(): String {
+    val format = NumberFormat.getCurrencyInstance(Locale("es", "CO"))
+    return format.format(this)
+}
