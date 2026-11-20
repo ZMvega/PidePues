@@ -55,20 +55,23 @@ fun RestaurantDetailScreen(
     var menu by remember(restaurantId) { mutableStateOf<List<MenuItem>>(emptyList()) }
     var isLoading by remember(restaurantId) { mutableStateOf(true) }
     var loadFailed by remember(restaurantId) { mutableStateOf(false) }
+    var allProductsUnavailable by remember(restaurantId) { mutableStateOf(false) }
     var pendingReplace by remember { mutableStateOf<MenuItem?>(null) }
 
-    LaunchedEffect(restaurantId) {
+    DisposableEffect(restaurantId) {
         isLoading = true
-        RestaurantRepository.fetchMenu(restaurantId) { result ->
+        val registration = RestaurantRepository.listenMenu(restaurantId.toString()) { result ->
             val items = result.getOrNull()
             if (items != null) {
-                menu = items
+                menu = items.filter { it.isAvailable }
+                allProductsUnavailable = items.isNotEmpty() && menu.isEmpty()
                 loadFailed = false
             } else {
                 loadFailed = true
             }
             isLoading = false
         }
+        onDispose { registration.remove() }
     }
 
     Box(Modifier.fillMaxSize().background(ScreenBg)) {
@@ -194,7 +197,13 @@ fun RestaurantDetailScreen(
             } else if (loadFailed || menu.isEmpty()) {
                 item {
                     Text(
-                        text = stringResource(if (loadFailed) R.string.error_loading_menu else R.string.menu_empty),
+                        text = stringResource(
+                            when {
+                                loadFailed -> R.string.error_loading_menu
+                                allProductsUnavailable -> R.string.menu_all_products_unavailable
+                                else -> R.string.menu_empty
+                            }
+                        ),
                         color = Muted,
                         fontSize = 14.sp,
                         textAlign = TextAlign.Center,
