@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "284839255850",
+    "project_id": "pidepues-b608f",
+    "storage_bucket": "pidepues-b608f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:284839255850:android:8a61d4b27410f26a9d0853",
+        "android_client_info": {
+          "package_name": "co.edu.udea.compumovil.labs20262_gr08.pidepues"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxqt8b6Wyex7qZeDoOlg0QcJSUVH-LQkU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,6 +1,6 @@
 package co.edu.udea.compumovil.labs20262_gr08.pidepues.domain
 
-import co.edu.udea.compumovil.labs20262_gr08.pidepues.data.RestaurantRepository
+import co.edu.udea.compumovil.labs20262_gr08.pidepues.data.SampleData
 import co.edu.udea.compumovil.labs20262_gr08.pidepues.model.Category
 import co.edu.udea.compumovil.labs20262_gr08.pidepues.model.RestaurantFilters
 import co.edu.udea.compumovil.labs20262_gr08.pidepues.model.SortOption
@@ -14,7 +14,7 @@ import org.junit.Test
 class RestaurantRankingTest {
 
     private val elPoblado = UserLocation(6.2088, -75.5671)
-    private val all = RestaurantRanking.withDistance(RestaurantRepository.getRestaurants(), elPoblado)
+    private val all = RestaurantRanking.withDistance(SampleData.restaurants(), elPoblado)
 
     private fun names(filters: RestaurantFilters) =
         RestaurantRanking.filterAndSort(all, filters).map { it.restaurant.name }
