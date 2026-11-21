@@ -1,21 +1,25 @@
 package co.edu.udea.compumovil.labs20262_gr08.pidepues.ui.main
 
 import android.content.Context
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import co.edu.udea.compumovil.labs20262_gr08.pidepues.data.FirestoreSeeder
 import co.edu.udea.compumovil.labs20262_gr08.pidepues.data.RestaurantRepository
 import co.edu.udea.compumovil.labs20262_gr08.pidepues.domain.RestaurantRanking
 import co.edu.udea.compumovil.labs20262_gr08.pidepues.location.LocationProvider
 import co.edu.udea.compumovil.labs20262_gr08.pidepues.model.Category
+import co.edu.udea.compumovil.labs20262_gr08.pidepues.model.Restaurant
 import co.edu.udea.compumovil.labs20262_gr08.pidepues.model.RestaurantFilters
 import co.edu.udea.compumovil.labs20262_gr08.pidepues.model.RestaurantWithDistance
 import co.edu.udea.compumovil.labs20262_gr08.pidepues.model.SortOption
 import co.edu.udea.compumovil.labs20262_gr08.pidepues.model.UserLocation
+import co.edu.udea.compumovil.labs20262_gr08.pidepues.util.haversineKm
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 
 /**
- * Estado compartido entre Inicio, Buscar y Filtros (ViewModel de la Activity).
- * Cada cambio recalcula las listas con [RestaurantRanking].
+ * Estado compartido entre Inicio, Buscar, Filtros y el detalle del restaurante.
+ * Los restaurantes vienen de Firestore; cada cambio recalcula las listas con [RestaurantRanking].
  */
 class RestaurantsViewModel : ViewModel() {
 
@@ -27,91 +31,157 @@ class RestaurantsViewModel : ViewModel() {
         val nearby: List<RestaurantWithDistance>,
         /** Los anteriores, además del texto buscado (pantalla Buscar). */
         val searchResults: List<RestaurantWithDistance>,
-        val recentSearches: List<String>
+        val recentSearches: List<String>,
+        val isLoading: Boolean,
+        val loadError: Boolean
     ) {
         /** Buscar muestra resultados si hay texto o algún filtro distinto del predeterminado. */
         val isSearching: Boolean get() = query.isNotBlank() || !filters.isDefault
     }
 
-    private val restaurants = RestaurantRepository.getRestaurants()
+    private var restaurants: List<Restaurant> = emptyList()
+    private var location: UserLocation = LocationProvider.DEMO_CENTER
+    private var query = ""
+    private var filters = RestaurantFilters()
+    private var recents: List<String> = DEFAULT_RECENTS
+    private var isLoading = false
+    private var loadError = false
+    private var seedIfEmpty = false
 
-    private val _state = MutableLiveData(
-        buildState(LocationProvider.DEMO_CENTER, "", RestaurantFilters(), DEFAULT_RECENTS)
-    )
-    val state: LiveData<UiState> get() = _state
+    private val _state = MutableStateFlow(buildState())
+    val state: StateFlow<UiState> = _state.asStateFlow()
 
-    private val current: UiState get() = _state.value!!
-
-    private fun buildState(
-        location: UserLocation,
-        query: String,
-        filters: RestaurantFilters,
-        recents: List<String>
-    ): UiState {
+    private fun buildState(): UiState {
         val all = RestaurantRanking.withDistance(restaurants, location)
         val nearby = RestaurantRanking.filterAndSort(all, filters)
-        return UiState(location, query, filters, nearby, RestaurantRanking.search(nearby, query), recents)
+        return UiState(
+            location, query, filters, nearby, RestaurantRanking.search(nearby, query),
+            recents, isLoading, loadError
+        )
     }
 
-    private fun update(
-        location: UserLocation = current.location,
-        query: String = current.query,
-        filters: RestaurantFilters = current.filters,
-        recents: List<String> = current.recentSearches
-    ) {
-        _state.value = buildState(location, query, filters, recents)
+    private fun render() {
+        _state.value = buildState()
     }
 
-    //ubicacion
-    fun loadDeviceLocation(context: Context) {
-        LocationProvider.getCurrentLocation(context.applicationContext) { location ->
-            if (location != null) update(location = location)
+    // ---------- Datos (Firestore) ----------
+    /**
+     * Descarga los restaurantes. Con [seed] = true y la colección vacía, carga primero los
+     * datos de ejemplo (solo en depuración).
+     */
+    fun loadRestaurants(seed: Boolean = seedIfEmpty) {
+        seedIfEmpty = seed
+        isLoading = true
+        loadError = false
+        render()
+        RestaurantRepository.fetchRestaurants { result ->
+            val list = result.getOrNull()
+            if (list != null && list.isEmpty() && seedIfEmpty) {
+                FirestoreSeeder.seedIfEmpty { seeded ->
+                    if (seeded.isSuccess) {
+                        RestaurantRepository.fetchRestaurants { applyFetch(it) }
+                    } else {
+                        applyFetch(Result.failure(seeded.exceptionOrNull() ?: IllegalStateException()))
+                    }
+                }
+            } else {
+                applyFetch(result)
+            }
         }
     }
 
-    //busqueda
-    fun setQuery(query: String) {
-        if (query == current.query) return
-        update(query = query)
+    private fun applyFetch(result: Result<List<Restaurant>>) {
+        isLoading = false
+        val list = result.getOrNull()
+        if (list != null) {
+            restaurants = list
+            loadError = false
+        } else {
+            loadError = true
+        }
+        render()
+    }
+
+    /** Busca un restaurante por id (sin aplicar filtros) con su distancia al usuario. */
+    fun findById(id: Int): RestaurantWithDistance? =
+        restaurants.firstOrNull { it.id == id }?.let {
+            RestaurantWithDistance(it, haversineKm(location.latitude, location.longitude, it.latitude, it.longitude))
+        }
+
+    // ---------- Ubicación ----------
+    fun loadDeviceLocation(context: Context) {
+        LocationProvider.getCurrentLocation(context.applicationContext) { device ->
+            if (device != null) {
+                location = device
+                render()
+            }
+        }
+    }
+
+    // ---------- Búsqueda ----------
+    fun setQuery(newQuery: String) {
+        if (newQuery == query) return
+        query = newQuery
+        render()
     }
 
     /** Se llama al presionar "buscar" en el teclado: guarda la búsqueda en recientes. */
-    fun submitSearch(query: String) {
-        val text = query.trim()
-        if (text.isEmpty()) return
-        update(query = text, recents = pushRecent(text))
+    fun submitSearch(text: String) {
+        val clean = text.trim()
+        if (clean.isEmpty()) return
+        query = clean
+        recents = pushRecent(clean)
+        render()
     }
 
-    fun selectRecent(query: String) {
-        update(query = query, recents = pushRecent(query))
+    fun selectRecent(text: String) {
+        query = text
+        recents = pushRecent(text)
+        render()
     }
 
-    fun clearRecents() = update(recents = emptyList())
+    fun clearRecents() {
+        recents = emptyList()
+        render()
+    }
 
     private fun pushRecent(text: String): List<String> =
-        (listOf(text) + current.recentSearches.filterNot { it.equals(text, ignoreCase = true) })
-            .take(MAX_RECENTS)
+        (listOf(text) + recents.filterNot { it.equals(text, ignoreCase = true) }).take(MAX_RECENTS)
 
-    //filtros
+    // ---------- Filtros ----------
     fun setSort(sort: SortOption) {
-        if (sort == current.filters.sort) return
-        update(filters = current.filters.copy(sort = sort))
+        if (sort == filters.sort) return
+        filters = filters.copy(sort = sort)
+        render()
     }
 
-    fun setFilters(filters: RestaurantFilters) {
-        if (filters == current.filters) return
-        update(filters = filters)
+    fun setFilters(newFilters: RestaurantFilters) {
+        if (newFilters == filters) return
+        filters = newFilters
+        render()
     }
 
-    fun applyCategory(category: Category) =
-        update(filters = current.filters.copy(categories = setOf(category)))
+    fun applyCategory(category: Category) {
+        filters = filters.copy(categories = setOf(category))
+        render()
+    }
 
-    /**boton "Aplicar" del banner de enviso gratis: solo restaurantes con 4.5+. */
-    fun applyTopRatedPromo() = update(filters = current.filters.copy(minRating = 4.5f))
+    /** Botón "Aplicar" del banner de envío gratis: solo restaurantes con 4.5+. */
+    fun applyTopRatedPromo() {
+        filters = filters.copy(minRating = 4.5f)
+        render()
+    }
 
-    fun clearFilters() = update(filters = RestaurantFilters())
+    fun clearFilters() {
+        filters = RestaurantFilters()
+        render()
+    }
 
-    fun clearAll() = update(query = "", filters = RestaurantFilters())
+    fun clearAll() {
+        query = ""
+        filters = RestaurantFilters()
+        render()
+    }
 
     companion object {
         private const val MAX_RECENTS = 8

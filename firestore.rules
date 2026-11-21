@@ -1,0 +1,25 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Cada usuario solo lee y crea SU documento; el rol no se puede cambiar después.
+    match /users/{uid} {
+      allow read: if request.auth != null && request.auth.uid == uid;
+      allow create: if request.auth != null && request.auth.uid == uid
+                    && request.resource.data.role in ['cliente', 'restaurante', 'domiciliario'];
+      allow update: if request.auth != null && request.auth.uid == uid
+                    && request.resource.data.role == resource.data.role;
+    }
+
+    // Catálogo: lectura para usuarios con sesión.
+    match /restaurants/{restaurantId} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null;      // TEMPORAL: solo para cargar la semilla (ver README). Luego: false
+
+      match /menu/{itemId} {
+        allow read: if request.auth != null;
+        allow write: if request.auth != null;    // TEMPORAL: solo para cargar la semilla. Luego: false
+      }
+    }
+  }
+}
