@@ -141,7 +141,8 @@ object OrderRepository {
                 ?.toDate()?.time ?: System.currentTimeMillis(),
             etaMinutes = getLong("etaMinutes")?.toInt() ?: 30,
             driverName = getString("driverName"),
-            driverRating = getDouble("driverRating")
+            driverRating = getDouble("driverRating"),
+            rated = getBoolean("rated") ?: false
         )
     }
 }

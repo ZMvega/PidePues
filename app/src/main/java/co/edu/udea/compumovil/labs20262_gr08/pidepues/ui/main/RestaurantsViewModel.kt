@@ -13,6 +13,8 @@ import co.edu.udea.compumovil.labs20262_gr08.pidepues.model.RestaurantWithDistan
 import co.edu.udea.compumovil.labs20262_gr08.pidepues.model.SortOption
 import co.edu.udea.compumovil.labs20262_gr08.pidepues.model.UserLocation
 import co.edu.udea.compumovil.labs20262_gr08.pidepues.util.haversineKm
+import co.edu.udea.compumovil.labs20262_gr08.pidepues.domain.RecommendationEngine
+import co.edu.udea.compumovil.labs20262_gr08.pidepues.model.Order
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -40,6 +42,7 @@ class RestaurantsViewModel : ViewModel() {
     }
 
     private var restaurants: List<Restaurant> = emptyList()
+    private var orderHistory: List<Order> = emptyList()
     private var location: UserLocation = LocationProvider.DEMO_CENTER
     private var query = ""
     private var filters = RestaurantFilters()
@@ -53,7 +56,8 @@ class RestaurantsViewModel : ViewModel() {
 
     private fun buildState(): UiState {
         val all = RestaurantRanking.withDistance(restaurants, location)
-        val nearby = RestaurantRanking.filterAndSort(all, filters)
+        val preferences = RecommendationEngine.buildPreferences(orderHistory, restaurants, recents)
+        val nearby = RestaurantRanking.filterAndSort(all, filters, preferences)
         return UiState(
             location, query, filters, nearby, RestaurantRanking.search(nearby, query),
             recents, isLoading, loadError
@@ -180,6 +184,13 @@ class RestaurantsViewModel : ViewModel() {
     fun clearAll() {
         query = ""
         filters = RestaurantFilters()
+        render()
+    }
+
+    /** Actualiza el historial de pedidos para personalizar las recomendaciones. */
+    fun updateOrderHistory(orders: List<Order>) {
+        if (orders == orderHistory) return
+        orderHistory = orders
         render()
     }
 

@@ -84,7 +84,8 @@ data class Order(
     /** Minutos totales estimados al crear el pedido (los del restaurante). */
     val etaMinutes: Int,
     val driverName: String? = null,
-    val driverRating: Double? = null
+    val driverRating: Double? = null,
+    val rated: Boolean = false
 ) {
     /** Código corto para mostrar, ej. "#PP-AB3XK". */
     val shortCode: String get() = "#PP-" + id.take(5).uppercase()

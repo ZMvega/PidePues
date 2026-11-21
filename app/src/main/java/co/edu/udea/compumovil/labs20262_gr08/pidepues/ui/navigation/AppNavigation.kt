@@ -10,6 +10,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import android.widget.Toast
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import co.edu.udea.compumovil.labs20262_gr08.pidepues.data.ReviewRepository
+import co.edu.udea.compumovil.labs20262_gr08.pidepues.ui.rating.RateOrderScreen
+import co.edu.udea.compumovil.labs20262_gr08.pidepues.util.formatOrderDate
+import kotlinx.coroutines.launch
 import co.edu.udea.compumovil.labs20262_gr08.pidepues.data.AuthRepository
 import co.edu.udea.compumovil.labs20262_gr08.pidepues.model.UserProfile
 import co.edu.udea.compumovil.labs20262_gr08.pidepues.model.UserRole
@@ -33,6 +39,7 @@ import co.edu.udea.compumovil.labs20262_gr08.pidepues.ui.orders.OrderTrackingScr
 import co.edu.udea.compumovil.labs20262_gr08.pidepues.ui.orders.OrdersScreen
 import co.edu.udea.compumovil.labs20262_gr08.pidepues.ui.role.RoleHomeScreen
 import co.edu.udea.compumovil.labs20262_gr08.pidepues.ui.splash.SplashScreen
+import co.edu.udea.compumovil.labs20262_gr08.pidepues.ui.detail.RestaurantProfileScreen
 
 /** Rutas de la app (una sola Activity con un NavHost). */
 object Routes {
@@ -51,6 +58,10 @@ object Routes {
     const val CONFIRMATION = "order/confirmation/{id}"
     const val TRACKING = "order/tracking/{id}"
     const val ORDERS = "orders"
+    const val RATE = "order/rate/{id}"
+    const val RESTAURANT_MENU = "restaurant/{id}/menu"
+    fun restaurantMenu(id: Int): String = "restaurant/$id/menu"
+    fun rate(orderId: String): String = "order/rate/$orderId"
 
     fun restaurant(id: Int): String = "restaurant/" + id
     fun role(role: UserRole): String = "role/" + role.key
@@ -76,6 +87,11 @@ fun AppNavigation() {
     val checkoutViewModel: CheckoutViewModel = viewModel()
 
     var selectedTab by rememberSaveable { mutableStateOf(MainTab.HOME) }
+
+    val ordersState by ordersViewModel.state.collectAsStateWithLifecycle()
+    LaunchedEffect(ordersState.orders) {
+        restaurantsViewModel.updateOrderHistory(ordersState.orders)
+    }
 
     /** Navega a [route] y vacía la pila (no se vuelve atrás al login/splash). */
     fun goClearingBackStack(route: String) {
@@ -168,6 +184,18 @@ fun AppNavigation() {
             route = Routes.RESTAURANT,
             arguments = listOf(navArgument("id") { type = NavType.IntType })
         ) { entry ->
+            val id = entry.arguments?.getInt("id") ?: 0
+            RestaurantProfileScreen(
+                restaurantId = id,
+                restaurantsViewModel = restaurantsViewModel,
+                onBack = { navController.popBackStack() },
+                onViewMenu = { navController.navigate(Routes.restaurantMenu(id)) }
+            )
+        }
+        composable(
+            route = Routes.RESTAURANT_MENU,
+            arguments = listOf(navArgument("id") { type = NavType.IntType })
+        ) { entry ->
             RestaurantDetailScreen(
                 restaurantId = entry.arguments?.getInt("id") ?: 0,
                 restaurantsViewModel = restaurantsViewModel,
@@ -175,7 +203,7 @@ fun AppNavigation() {
                 onBack = { navController.popBackStack() },
                 onViewCart = {
                     selectedTab = MainTab.CART
-                    navController.popBackStack()
+                    navController.popBackStack(Routes.MAIN, false)
                 }
             )
         }
@@ -237,12 +265,59 @@ fun AppNavigation() {
             route = Routes.TRACKING,
             arguments = listOf(navArgument("id") { type = NavType.StringType })
         ) { entry ->
+            val orderId = entry.arguments?.getString("id").orEmpty()
             OrderTrackingScreen(
-                orderId = entry.arguments?.getString("id").orEmpty(),
+                orderId = orderId,
                 ordersViewModel = ordersViewModel,
                 isDebug = isDebug,
-                onBack = { navController.popBackStack() }
+                onBack = { navController.popBackStack() },
+                onRate = { navController.navigate(Routes.rate(orderId)) }
             )
+        }
+        composable(
+            route = Routes.RATE,
+            arguments = listOf(navArgument("id") { type = NavType.StringType })
+        ) { entry ->
+            val orderId = entry.arguments?.getString("id").orEmpty()
+            val ordersState by ordersViewModel.state.collectAsStateWithLifecycle()
+            val profile by sessionViewModel.profile.collectAsStateWithLifecycle()
+            val order = ordersState.find(orderId)
+            val scope = rememberCoroutineScope()
+            val reviewRepo = remember { ReviewRepository() }
+            var isSubmitting by remember { mutableStateOf(false) }
+
+            if (order != null) {
+                RateOrderScreen(
+                    restaurantName = order.restaurantName,
+                    restaurantEmoji = order.restaurantEmoji,
+                    orderDateLabel = formatOrderDate(order.createdAtMillis),
+                    orderShortCode = order.shortCode,
+                    isSubmitting = isSubmitting,
+                    onBack = { navController.popBackStack() },
+                    onSubmit = { stars, comment ->
+                        scope.launch {
+                            isSubmitting = true
+                            val result = reviewRepo.submitReview(
+                                orderId = order.id,
+                                orderShortCode = order.shortCode,
+                                restaurantId = order.restaurantId.toString(),
+                                restaurantName = order.restaurantName,
+                                customerName = profile?.fullName.orEmpty(),
+                                stars = stars,
+                                comment = comment
+                            )
+                            isSubmitting = false
+                            if (result.isSuccess) {
+                                Toast.makeText(context, "¡Gracias por tu calificación!", Toast.LENGTH_SHORT).show()
+                                restaurantsViewModel.loadRestaurants()
+                                navController.popBackStack()
+                            } else {
+                                Toast.makeText(context, "No pudimos enviar tu calificación", Toast.LENGTH_LONG).show()
+                            }
+                        }
+                    }
+                )
+            }
         }
         composable(Routes.ORDERS) {
             OrdersScreen(
