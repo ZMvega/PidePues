@@ -2,7 +2,6 @@ package co.edu.udea.compumovil.labs20262_gr08.pidepues.ui.orders
 
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.*
 import androidx.compose.foundation.shape.*
 import androidx.compose.foundation.text.*
 import androidx.compose.material3.*
@@ -73,7 +72,7 @@ fun OrderTrackingScreen(
             // ----- Mapa con el tiempo restante -----
             MapCard(height = 190.dp) {
                 MapPin(Modifier.align(Alignment.Center))
-                if (order.status == OrderStatus.ON_THE_WAY) {
+                if (order.status == OrderStatus.EN_CAMINO) {
                     Text(
                         text = "🛵",
                         fontSize = 30.sp,
@@ -186,14 +185,14 @@ fun OrderTrackingScreen(
                         fontWeight = FontWeight.Bold,
                         modifier = Modifier.padding(bottom = 12.dp)
                     )
-                    OrderStatus.values().forEachIndexed { index, step ->
+                    OrderStatus.entries.forEachIndexed { index, step ->
                         val state = when {
-                            order.status == OrderStatus.DELIVERED || order.status.ordinal > index -> StepState.DONE
+                            order.status == OrderStatus.ENTREGADO || order.status.ordinal > index -> StepState.DONE
                             order.status.ordinal == index -> StepState.CURRENT
                             else -> StepState.PENDING
                         }
                         val driverName = order.driverName
-                        val description = if (step == OrderStatus.ON_THE_WAY && driverName != null) {
+                        val description = if (step == OrderStatus.EN_CAMINO && driverName != null) {
                             stringResource(R.string.step_on_the_way_desc_named, driverName)
                         } else {
                             stringResource(descriptionFor(step))
@@ -201,9 +200,9 @@ fun OrderTrackingScreen(
                         TimelineStep(
                             title = stringResource(step.labelRes),
                             description = description,
-                            time = if (step == OrderStatus.RECEIVED) formatOrderTime(order.createdAtMillis) else null,
+                            time = if (step == OrderStatus.SOLICITADO) formatOrderTime(order.createdAtMillis) else null,
                             state = state,
-                            isLast = index == OrderStatus.values().lastIndex
+                            isLast = index == OrderStatus.entries.lastIndex
                         )
                     }
                 }
@@ -257,7 +256,7 @@ fun OrderTrackingScreen(
 
         // Acciones fijas abajo
         val canSimulate = isDebug && order.status.next() != null
-        val delivered = order.status == OrderStatus.DELIVERED
+        val delivered = order.status == OrderStatus.ENTREGADO
         if (canSimulate || delivered) {
             BottomActionBar {
                 if (delivered) {
@@ -282,17 +281,19 @@ fun OrderTrackingScreen(
 }
 
 private fun subtitleFor(status: OrderStatus): Int = when (status) {
-    OrderStatus.RECEIVED -> R.string.tracking_sub_received
-    OrderStatus.PREPARING -> R.string.tracking_sub_preparing
-    OrderStatus.ON_THE_WAY -> R.string.tracking_sub_on_the_way
-    OrderStatus.DELIVERED -> R.string.tracking_sub_delivered
+    OrderStatus.SOLICITADO -> R.string.tracking_sub_received
+    OrderStatus.TOMADO -> R.string.tracking_sub_preparing
+    OrderStatus.PREPARADO -> R.string.tracking_sub_prepared
+    OrderStatus.EN_CAMINO -> R.string.tracking_sub_on_the_way
+    OrderStatus.ENTREGADO -> R.string.tracking_sub_delivered
 }
 
 private fun descriptionFor(status: OrderStatus): Int = when (status) {
-    OrderStatus.RECEIVED -> R.string.step_received_desc
-    OrderStatus.PREPARING -> R.string.step_preparing_desc
-    OrderStatus.ON_THE_WAY -> R.string.step_on_the_way_desc
-    OrderStatus.DELIVERED -> R.string.step_delivered_desc
+    OrderStatus.SOLICITADO -> R.string.step_received_desc
+    OrderStatus.TOMADO -> R.string.step_preparing_desc
+    OrderStatus.PREPARADO -> R.string.step_prepared_desc
+    OrderStatus.EN_CAMINO -> R.string.step_on_the_way_desc
+    OrderStatus.ENTREGADO -> R.string.step_delivered_desc
 }
 
 /** Un paso de la línea de tiempo: círculo (hecho / actual / pendiente), línea y textos. */

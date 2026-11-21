@@ -63,7 +63,7 @@ object OrderRepository {
             "address" to address,
             "instructions" to instructions,
             "paymentMethod" to payment.key,
-            "status" to OrderStatus.RECEIVED.key,
+            "status" to OrderStatus.SOLICITADO.key,
             "etaMinutes" to restaurant.deliveryMinutes,
             "createdAt" to FieldValue.serverTimestamp(),
             "updatedAt" to FieldValue.serverTimestamp()
@@ -101,7 +101,7 @@ object OrderRepository {
             "status" to next.key,
             "updatedAt" to FieldValue.serverTimestamp()
         )
-        if (next == OrderStatus.ON_THE_WAY) {
+        if (next == OrderStatus.EN_CAMINO) {
             update["driverName"] = "Andrés"
             update["driverRating"] = 4.9
         }

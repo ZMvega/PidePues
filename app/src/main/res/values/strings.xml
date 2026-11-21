@@ -409,6 +409,7 @@
     <string name="address_error">No pudimos guardar la dirección. Inténtalo de nuevo.</string>
 
     <string name="status_received">Pedido confirmado</string>
+    <string name="status_asigned">Pedido asignado</string>
     <string name="status_preparing">Preparando tu pedido</string>
     <string name="status_on_the_way">En camino</string>
     <string name="status_delivered">Entregado</string>
@@ -465,10 +466,12 @@
     <string name="tracking_in_progress">En progreso…</string>
     <string name="tracking_sub_received">Esperando que el restaurante empiece</string>
     <string name="tracking_sub_preparing">El restaurante está cocinando tu pedido</string>
+    <string name="tracking_sub_prepared">Tu pedido está preparado y empacado</string>
     <string name="tracking_sub_on_the_way">Tu pedido va hacia tu dirección</string>
     <string name="tracking_sub_delivered">¡Buen provecho!</string>
     <string name="step_received_desc">Tu pedido fue recibido</string>
     <string name="step_preparing_desc">El restaurante está cocinando</string>
+    <string name="step_prepared_desc">El pedido está empacado y listo</string>
     <string name="step_on_the_way_desc">Tu repartidor lleva el pedido</string>
     <string name="step_on_the_way_desc_named">%1$s está llevando tu pedido</string>
     <string name="step_delivered_desc">¡Buen provecho!</string>

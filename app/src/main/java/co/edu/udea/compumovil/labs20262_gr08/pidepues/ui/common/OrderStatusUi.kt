@@ -7,18 +7,20 @@ import co.edu.udea.compumovil.labs20262_gr08.pidepues.model.PaymentMethod
 /** Textos de cada estado del pedido (los datos van en el modelo; los recursos, aquí). */
 val OrderStatus.labelRes: Int
     get() = when (this) {
-        OrderStatus.RECEIVED -> R.string.status_received
-        OrderStatus.PREPARING -> R.string.status_preparing
-        OrderStatus.ON_THE_WAY -> R.string.status_on_the_way
-        OrderStatus.DELIVERED -> R.string.status_delivered
+        OrderStatus.SOLICITADO -> R.string.status_received
+        OrderStatus.TOMADO -> R.string.status_asigned
+        OrderStatus.PREPARADO -> R.string.status_preparing
+        OrderStatus.EN_CAMINO -> R.string.status_on_the_way
+        OrderStatus.ENTREGADO -> R.string.status_delivered
     }
 
 val OrderStatus.emoji: String
     get() = when (this) {
-        OrderStatus.RECEIVED -> "✅"
-        OrderStatus.PREPARING -> "👨‍🍳"
-        OrderStatus.ON_THE_WAY -> "🛵"
-        OrderStatus.DELIVERED -> "🎉"
+        OrderStatus.SOLICITADO -> "✅"
+        OrderStatus.TOMADO -> "\uD83D\uDCDD"
+        OrderStatus.PREPARADO -> "👨‍🍳"
+        OrderStatus.EN_CAMINO -> "🛵"
+        OrderStatus.ENTREGADO -> "🎉"
     }
 
 val PaymentMethod.labelRes: Int

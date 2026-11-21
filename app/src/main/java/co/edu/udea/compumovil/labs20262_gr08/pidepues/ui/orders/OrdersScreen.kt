@@ -1,7 +1,6 @@
 package co.edu.udea.compumovil.labs20262_gr08.pidepues.ui.orders
 
 import androidx.compose.foundation.*
-import androidx.compose.foundation.interaction.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.*
 import androidx.compose.foundation.shape.*
@@ -147,10 +146,11 @@ private fun OrderCard(order: Order, onClick: () -> Unit, modifier: Modifier = Mo
 @Composable
 private fun StatusChip(status: OrderStatus) {
     val (background, content) = when (status) {
-        OrderStatus.RECEIVED -> TileBlue to IconBlue
-        OrderStatus.PREPARING -> TileAmber to Primary
-        OrderStatus.ON_THE_WAY -> TileOrange to Primary
-        OrderStatus.DELIVERED -> TileGreen to IconGreen
+        OrderStatus.SOLICITADO -> TileBlue to IconBlue
+        OrderStatus.TOMADO -> TileAmber to Primary
+        OrderStatus.PREPARADO -> Color(0xFFEDE9FE) to Color(0xFF6D28D9)
+        OrderStatus.EN_CAMINO -> TileOrange to Primary
+        OrderStatus.ENTREGADO -> TileGreen to IconGreen
     }
     Text(
         text = stringResource(status.labelRes),

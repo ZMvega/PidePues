@@ -22,24 +22,30 @@ class OrderTest {
 
     @Test
     fun status_advancesInOrderAndStopsAtDelivered() {
-        assertEquals(OrderStatus.PREPARING, OrderStatus.RECEIVED.next())
-        assertEquals(OrderStatus.ON_THE_WAY, OrderStatus.PREPARING.next())
-        assertEquals(OrderStatus.DELIVERED, OrderStatus.ON_THE_WAY.next())
-        assertNull(OrderStatus.DELIVERED.next())
+        assertEquals(OrderStatus.TOMADO, OrderStatus.SOLICITADO.next())
+        assertEquals(OrderStatus.PREPARADO, OrderStatus.TOMADO.next())
+        assertEquals(OrderStatus.EN_CAMINO, OrderStatus.PREPARADO.next())
+        assertEquals(OrderStatus.ENTREGADO, OrderStatus.EN_CAMINO.next())
+        assertNull(OrderStatus.ENTREGADO.next())
     }
 
     @Test
     fun status_isActiveUntilDelivered() {
-        assertTrue(OrderStatus.RECEIVED.isActive)
-        assertTrue(OrderStatus.ON_THE_WAY.isActive)
-        assertFalse(OrderStatus.DELIVERED.isActive)
+        assertTrue(OrderStatus.SOLICITADO.isActive)
+        assertTrue(OrderStatus.TOMADO.isActive)
+        assertTrue(OrderStatus.PREPARADO.isActive)
+        assertTrue(OrderStatus.EN_CAMINO.isActive)
+        assertFalse(OrderStatus.ENTREGADO.isActive)
     }
 
     @Test
     fun status_fromKeyFallsBackToReceived() {
-        assertEquals(OrderStatus.ON_THE_WAY, OrderStatus.fromKey("on_the_way"))
-        assertEquals(OrderStatus.RECEIVED, OrderStatus.fromKey("otra-cosa"))
-        assertEquals(OrderStatus.RECEIVED, OrderStatus.fromKey(null))
+        assertEquals(OrderStatus.EN_CAMINO, OrderStatus.fromKey("en_camino"))
+        assertEquals(OrderStatus.EN_CAMINO, OrderStatus.fromKey("on_the_way"))
+        assertEquals(OrderStatus.TOMADO, OrderStatus.fromKey("tomado"))
+        assertEquals(OrderStatus.PREPARADO, OrderStatus.fromKey("preparado"))
+        assertEquals(OrderStatus.SOLICITADO, OrderStatus.fromKey("otra-cosa"))
+        assertEquals(OrderStatus.SOLICITADO, OrderStatus.fromKey(null))
     }
 
     @Test
@@ -50,17 +56,18 @@ class OrderTest {
 
     @Test
     fun order_codeAndItemCount() {
-        val o = order(OrderStatus.RECEIVED)
+        val o = order(OrderStatus.SOLICITADO)
         assertEquals("#PP-ABC12", o.shortCode)
         assertEquals(3, o.itemCount)
     }
 
     @Test
     fun order_remainingMinutesDropsAsItAdvances() {
-        val received = order(OrderStatus.RECEIVED).remainingMinutes()
-        val preparing = order(OrderStatus.PREPARING).remainingMinutes()
-        val onTheWay = order(OrderStatus.ON_THE_WAY).remainingMinutes()
-        assertTrue(received > preparing && preparing > onTheWay && onTheWay >= 5)
-        assertEquals(0, order(OrderStatus.DELIVERED).remainingMinutes())
+        val solicitado = order(OrderStatus.SOLICITADO).remainingMinutes()
+        val tomado = order(OrderStatus.TOMADO).remainingMinutes()
+        val preparado = order(OrderStatus.PREPARADO).remainingMinutes()
+        val enCamino = order(OrderStatus.EN_CAMINO).remainingMinutes()
+        assertTrue(solicitado >= tomado && tomado >= preparado && preparado >= enCamino && enCamino >= 5)
+        assertEquals(0, order(OrderStatus.ENTREGADO).remainingMinutes())
     }
 }
