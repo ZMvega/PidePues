@@ -403,7 +403,6 @@
     <string name="error_phone_empty">El usuario no tiene un número telefónico registrado.</string>
     <string name="error_call_unavailable">No se encontró una aplicación de llamadas disponible.</string>
     <string name="reviews_reply_success">Tu respuesta ha sido publicada con éxito.</string>
-
     <!-- ===== Semana 8: pedidos (dirección, pago, confirmación, seguimiento, historial) ===== -->
     <string name="summary_service">Cargo por servicio</string>
     <string name="order_error">No pudimos crear tu pedido. Inténtalo de nuevo.</string>
