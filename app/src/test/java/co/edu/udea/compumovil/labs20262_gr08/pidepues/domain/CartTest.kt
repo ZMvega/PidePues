@@ -24,7 +24,8 @@ class CartTest {
         assertEquals(2, cart.quantityOf(pizzaMenu[0].id))
         assertEquals(68000, cart.subtotal)
         assertEquals(4000, cart.deliveryFee)
-        assertEquals(72000, cart.total)
+        assertEquals(Cart.SERVICE_FEE, cart.serviceFee)
+        assertEquals(73000, cart.total)
     }
 
     @Test

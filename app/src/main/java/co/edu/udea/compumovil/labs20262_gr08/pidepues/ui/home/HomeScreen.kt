@@ -22,8 +22,11 @@ import co.edu.udea.compumovil.labs20262_gr08.pidepues.R
 import co.edu.udea.compumovil.labs20262_gr08.pidepues.ui.theme.*
 import co.edu.udea.compumovil.labs20262_gr08.pidepues.ui.components.*
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import co.edu.udea.compumovil.labs20262_gr08.pidepues.model.Order
 import co.edu.udea.compumovil.labs20262_gr08.pidepues.model.SortOption
+import co.edu.udea.compumovil.labs20262_gr08.pidepues.ui.common.emoji
 import co.edu.udea.compumovil.labs20262_gr08.pidepues.ui.common.infoRes
+import co.edu.udea.compumovil.labs20262_gr08.pidepues.ui.common.labelRes
 import co.edu.udea.compumovil.labs20262_gr08.pidepues.ui.common.listTitleRes
 import co.edu.udea.compumovil.labs20262_gr08.pidepues.ui.main.RestaurantsViewModel
 import co.edu.udea.compumovil.labs20262_gr08.pidepues.ui.main.SessionViewModel
@@ -34,7 +37,9 @@ fun HomeScreen(
     sessionViewModel: SessionViewModel,
     onSearchClick: () -> Unit,
     onFiltersClick: () -> Unit,
-    onRestaurantClick: (Int) -> Unit
+    onRestaurantClick: (Int) -> Unit,
+    activeOrder: Order?,
+    onActiveOrderClick: (String) -> Unit
 ) {
     StatusBarAppearance(darkIcons = false)
     val state by restaurantsViewModel.state.collectAsStateWithLifecycle()
@@ -60,6 +65,15 @@ fun HomeScreen(
             modifier = Modifier.weight(1f),
             contentPadding = PaddingValues(16.dp)
         ) {
+            if (activeOrder != null) {
+                item {
+                    ActiveOrderBanner(
+                        order = activeOrder,
+                        onClick = { onActiveOrderClick(activeOrder.id) },
+                        modifier = Modifier.padding(bottom = 16.dp)
+                    )
+                }
+            }
             item { PromoBanner(onApply = { restaurantsViewModel.applyTopRatedPromo() }) }
             item {
                 SortChips(
@@ -315,3 +329,36 @@ private fun SortChips(selected: SortOption, onSelect: (SortOption) -> Unit) {
         }
     }
 }
+
+/** Aviso en Inicio cuando hay un pedido en curso: lleva al seguimiento. */
+@Composable
+private fun ActiveOrderBanner(order: Order, onClick: () -> Unit, modifier: Modifier = Modifier) {
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(20.dp))
+            .background(Peach)
+            .border(1.dp, PeachStroke, RoundedCornerShape(20.dp))
+            .clickable(onClick = onClick)
+            .padding(14.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        EmojiTile(emoji = order.status.emoji, background = Color.White, size = 44.dp)
+        Column(Modifier.weight(1f).padding(horizontal = 12.dp)) {
+            Text(
+                text = stringResource(R.string.home_active_order_title),
+                color = Ink,
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Bold
+            )
+            Text(
+                text = stringResource(order.status.labelRes) + " · " + order.restaurantName,
+                color = Muted,
+                fontSize = 12.sp,
+                modifier = Modifier.padding(top = 2.dp)
+            )
+        }
+        LinkText(text = stringResource(R.string.home_active_order_cta), onClick = onClick)
+    }
+}
+

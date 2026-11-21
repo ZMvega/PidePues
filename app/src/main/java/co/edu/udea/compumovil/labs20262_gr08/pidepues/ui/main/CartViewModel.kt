@@ -19,6 +19,7 @@ class CartViewModel : ViewModel() {
         val itemCount: Int,
         val subtotal: Int,
         val deliveryFee: Int,
+        val serviceFee: Int,
         val total: Int
     ) {
         val isEmpty: Boolean get() = lines.isEmpty()
@@ -31,7 +32,7 @@ class CartViewModel : ViewModel() {
     val state: StateFlow<CartState> = _state.asStateFlow()
 
     private fun snapshot() = CartState(
-        cart.restaurant, cart.lines, cart.itemCount, cart.subtotal, cart.deliveryFee, cart.total
+        cart.restaurant, cart.lines, cart.itemCount, cart.subtotal, cart.deliveryFee, cart.serviceFee, cart.total
     )
 
     private fun publish() {
