@@ -2,24 +2,56 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    // Cada usuario solo lee y crea SU documento; el rol no se puede cambiar después.
-    match /users/{uid} {
-      allow read: if request.auth != null && request.auth.uid == uid;
-      allow create: if request.auth != null && request.auth.uid == uid
-                    && request.resource.data.role in ['cliente', 'restaurante', 'domiciliario'];
-      allow update: if request.auth != null && request.auth.uid == uid
-                    && request.resource.data.role == resource.data.role;
+    function isSignedIn() {
+      return request.auth != null;
     }
 
-    // Catálogo: lectura para usuarios con sesión.
+    function isOwner(uid) {
+      return isSignedIn() && request.auth.uid == uid;
+    }
+
+    // Perfiles y direcciones privadas: solo el propio usuario puede leer y escribir
+    match /users/{uid} {
+      allow read, write: if isOwner(uid);
+
+      match /addresses/{addressId} {
+        allow read, write: if isOwner(uid);
+      }
+    }
+
+    // Restaurantes: lectura pública; escritura solo para el dueño o actualización de calificación
     match /restaurants/{restaurantId} {
-      allow read: if request.auth != null;
-      allow write: if request.auth != null;      // TEMPORAL: solo para cargar la semilla (ver README). Luego: false
+      allow read: if true;
+      allow create: if isSignedIn();
+      allow update: if isSignedIn() && (
+        resource.data.ownerUid == request.auth.uid ||
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['rating', 'reviewCount'])
+      );
 
       match /menu/{itemId} {
-        allow read: if request.auth != null;
-        allow write: if request.auth != null;    // TEMPORAL: solo para cargar la semilla. Luego: false
+        allow read: if true;
+        allow write: if isSignedIn() &&
+          get(/databases/$(database)/documents/restaurants/$(restaurantId)).data.ownerUid == request.auth.uid;
       }
+
+      match /reviews/{reviewId} {
+        allow read: if true;
+        allow create: if isSignedIn()
+          && request.resource.data.userId == request.auth.uid
+          && request.resource.data.rating >= 1
+          && request.resource.data.rating <= 5;
+        allow update: if isSignedIn() &&
+          get(/databases/$(database)/documents/restaurants/$(restaurantId)).data.ownerUid == request.auth.uid;
+      }
+    }
+
+    // Pedidos: solo el cliente que lo creó o el restaurante asignado pueden leerlo/actualizarlo
+    match /orders/{orderId} {
+      allow create: if isSignedIn() && request.resource.data.customerId == request.auth.uid;
+      allow read, update: if isSignedIn() && (
+        resource.data.customerId == request.auth.uid ||
+        resource.data.restaurantId == request.auth.uid
+      );
     }
   }
 }
