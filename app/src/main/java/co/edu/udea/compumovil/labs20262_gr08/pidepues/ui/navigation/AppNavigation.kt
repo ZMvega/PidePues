@@ -15,15 +15,22 @@ import co.edu.udea.compumovil.labs20262_gr08.pidepues.model.UserProfile
 import co.edu.udea.compumovil.labs20262_gr08.pidepues.model.UserRole
 import co.edu.udea.compumovil.labs20262_gr08.pidepues.ui.auth.LoginScreen
 import co.edu.udea.compumovil.labs20262_gr08.pidepues.ui.auth.RegisterScreen
+import co.edu.udea.compumovil.labs20262_gr08.pidepues.ui.checkout.DeliveryAddressScreen
+import co.edu.udea.compumovil.labs20262_gr08.pidepues.ui.checkout.PaymentScreen
 import co.edu.udea.compumovil.labs20262_gr08.pidepues.ui.detail.RestaurantDetailScreen
 import co.edu.udea.compumovil.labs20262_gr08.pidepues.ui.filters.FiltersScreen
 import co.edu.udea.compumovil.labs20262_gr08.pidepues.ui.location.LocationPermissionScreen
 import co.edu.udea.compumovil.labs20262_gr08.pidepues.ui.main.AuthViewModel
 import co.edu.udea.compumovil.labs20262_gr08.pidepues.ui.main.CartViewModel
+import co.edu.udea.compumovil.labs20262_gr08.pidepues.ui.main.CheckoutViewModel
 import co.edu.udea.compumovil.labs20262_gr08.pidepues.ui.main.MainScreen
 import co.edu.udea.compumovil.labs20262_gr08.pidepues.ui.main.MainTab
+import co.edu.udea.compumovil.labs20262_gr08.pidepues.ui.main.OrdersViewModel
 import co.edu.udea.compumovil.labs20262_gr08.pidepues.ui.main.RestaurantsViewModel
 import co.edu.udea.compumovil.labs20262_gr08.pidepues.ui.main.SessionViewModel
+import co.edu.udea.compumovil.labs20262_gr08.pidepues.ui.orders.OrderConfirmationScreen
+import co.edu.udea.compumovil.labs20262_gr08.pidepues.ui.orders.OrderTrackingScreen
+import co.edu.udea.compumovil.labs20262_gr08.pidepues.ui.orders.OrdersScreen
 import co.edu.udea.compumovil.labs20262_gr08.pidepues.ui.role.RoleHomeScreen
 import co.edu.udea.compumovil.labs20262_gr08.pidepues.ui.splash.SplashScreen
 
@@ -38,8 +45,17 @@ object Routes {
     const val RESTAURANT = "restaurant/{id}"
     const val ROLE = "role/{role}"
 
+    // Compra y pedidos (semana 8)
+    const val ADDRESS = "checkout/address"
+    const val PAYMENT = "checkout/payment"
+    const val CONFIRMATION = "order/confirmation/{id}"
+    const val TRACKING = "order/tracking/{id}"
+    const val ORDERS = "orders"
+
     fun restaurant(id: Int): String = "restaurant/" + id
     fun role(role: UserRole): String = "role/" + role.key
+    fun confirmation(orderId: String): String = "order/confirmation/" + orderId
+    fun tracking(orderId: String): String = "order/tracking/" + orderId
 }
 
 private fun isDebuggable(context: android.content.Context): Boolean =
@@ -49,12 +65,15 @@ private fun isDebuggable(context: android.content.Context): Boolean =
 fun AppNavigation() {
     val navController = rememberNavController()
     val context = LocalContext.current
+    val isDebug = remember { isDebuggable(context) }
 
     // ViewModels compartidos por toda la app (ámbito de la Activity)
     val restaurantsViewModel: RestaurantsViewModel = viewModel()
     val cartViewModel: CartViewModel = viewModel()
     val sessionViewModel: SessionViewModel = viewModel()
     val authViewModel: AuthViewModel = viewModel()
+    val ordersViewModel: OrdersViewModel = viewModel()
+    val checkoutViewModel: CheckoutViewModel = viewModel()
 
     var selectedTab by rememberSaveable { mutableStateOf(MainTab.HOME) }
 
@@ -70,7 +89,10 @@ fun AppNavigation() {
         sessionViewModel.set(profile)
         if (profile.role == UserRole.CLIENT) {
             // En depuración, si Firestore está vacío se cargan los datos de ejemplo
-            restaurantsViewModel.loadRestaurants(seed = isDebuggable(context))
+            restaurantsViewModel.loadRestaurants(seed = isDebug)
+            // Pedidos (tiempo real) y direcciones guardadas del cliente
+            ordersViewModel.start(profile.uid)
+            checkoutViewModel.start(profile.uid)
             selectedTab = MainTab.HOME
             goClearingBackStack(Routes.LOCATION)
         } else {
@@ -79,6 +101,9 @@ fun AppNavigation() {
     }
 
     fun logout() {
+        // Primero se cancelan los oyentes de Firestore, luego se cierra la sesión
+        ordersViewModel.stop()
+        checkoutViewModel.stop()
         AuthRepository.logout()
         cartViewModel.clear()
         sessionViewModel.clear()
@@ -124,8 +149,12 @@ fun AppNavigation() {
                 restaurantsViewModel = restaurantsViewModel,
                 cartViewModel = cartViewModel,
                 sessionViewModel = sessionViewModel,
+                ordersViewModel = ordersViewModel,
                 onOpenFilters = { navController.navigate(Routes.FILTERS) },
                 onOpenRestaurant = { id -> navController.navigate(Routes.restaurant(id)) },
+                onCheckout = { navController.navigate(Routes.ADDRESS) },
+                onOpenOrders = { navController.navigate(Routes.ORDERS) },
+                onOpenOrderTracking = { orderId -> navController.navigate(Routes.tracking(orderId)) },
                 onLogout = { logout() }
             )
         }
@@ -158,6 +187,68 @@ fun AppNavigation() {
                 role = UserRole.fromKey(entry.arguments?.getString("role")),
                 sessionViewModel = sessionViewModel,
                 onLogout = { logout() }
+            )
+        }
+
+        // ----- Compra: dirección → pago → confirmación → seguimiento -----
+        composable(Routes.ADDRESS) {
+            DeliveryAddressScreen(
+                checkoutViewModel = checkoutViewModel,
+                restaurantsViewModel = restaurantsViewModel,
+                sessionViewModel = sessionViewModel,
+                onBack = { navController.popBackStack() },
+                onConfirm = { navController.navigate(Routes.PAYMENT) }
+            )
+        }
+        composable(Routes.PAYMENT) {
+            PaymentScreen(
+                cartViewModel = cartViewModel,
+                checkoutViewModel = checkoutViewModel,
+                restaurantsViewModel = restaurantsViewModel,
+                sessionViewModel = sessionViewModel,
+                onBack = { navController.popBackStack() },
+                onPlaced = { orderId ->
+                    cartViewModel.clear()
+                    // Se quitan dirección y pago de la pila: "atrás" desde la confirmación vuelve a la app
+                    navController.navigate(Routes.confirmation(orderId)) {
+                        popUpTo(Routes.MAIN)
+                    }
+                }
+            )
+        }
+        composable(
+            route = Routes.CONFIRMATION,
+            arguments = listOf(navArgument("id") { type = NavType.StringType })
+        ) { entry ->
+            val orderId = entry.arguments?.getString("id").orEmpty()
+            OrderConfirmationScreen(
+                orderId = orderId,
+                ordersViewModel = ordersViewModel,
+                onTrack = {
+                    navController.navigate(Routes.tracking(orderId)) { popUpTo(Routes.MAIN) }
+                },
+                onHome = {
+                    selectedTab = MainTab.HOME
+                    navController.popBackStack(Routes.MAIN, false)
+                }
+            )
+        }
+        composable(
+            route = Routes.TRACKING,
+            arguments = listOf(navArgument("id") { type = NavType.StringType })
+        ) { entry ->
+            OrderTrackingScreen(
+                orderId = entry.arguments?.getString("id").orEmpty(),
+                ordersViewModel = ordersViewModel,
+                isDebug = isDebug,
+                onBack = { navController.popBackStack() }
+            )
+        }
+        composable(Routes.ORDERS) {
+            OrdersScreen(
+                ordersViewModel = ordersViewModel,
+                onBack = { navController.popBackStack() },
+                onOpenOrder = { orderId -> navController.navigate(Routes.tracking(orderId)) }
             )
         }
     }

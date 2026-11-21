@@ -21,8 +21,6 @@ import androidx.compose.ui.unit.*
 import co.edu.udea.compumovil.labs20262_gr08.pidepues.R
 import co.edu.udea.compumovil.labs20262_gr08.pidepues.ui.theme.*
 import co.edu.udea.compumovil.labs20262_gr08.pidepues.ui.components.*
-import android.widget.Toast
-import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import co.edu.udea.compumovil.labs20262_gr08.pidepues.ui.main.CartViewModel
 import co.edu.udea.compumovil.labs20262_gr08.pidepues.util.toCop
@@ -31,12 +29,11 @@ import co.edu.udea.compumovil.labs20262_gr08.pidepues.util.toCop
 @Composable
 fun CartScreen(
     cartViewModel: CartViewModel,
-    onExplore: () -> Unit
+    onExplore: () -> Unit,
+    onCheckout: () -> Unit
 ) {
     StatusBarAppearance(darkIcons = true)
-    val context = LocalContext.current
     val cart by cartViewModel.state.collectAsStateWithLifecycle()
-    val checkoutSoon = stringResource(R.string.checkout_coming_soon)
 
     Column(Modifier.fillMaxSize().background(ScreenBg)) {
         Row(
@@ -151,6 +148,11 @@ fun CartScreen(
                                 value = if (cart.deliveryFee == 0) stringResource(R.string.delivery_free) else cart.deliveryFee.toCop(),
                                 modifier = Modifier.padding(top = 8.dp)
                             )
+                            SummaryRow(
+                                label = stringResource(R.string.summary_service),
+                                value = cart.serviceFee.toCop(),
+                                modifier = Modifier.padding(top = 8.dp)
+                            )
                             HorizontalDivider(color = DividerGray, modifier = Modifier.padding(vertical = 12.dp))
                             SummaryRow(
                                 label = stringResource(R.string.summary_total),
@@ -171,7 +173,7 @@ fun CartScreen(
             ) {
                 PrimaryButton(
                     text = stringResource(R.string.checkout_format, cart.total.toCop()),
-                    onClick = { Toast.makeText(context, checkoutSoon, Toast.LENGTH_SHORT).show() }
+                    onClick = onCheckout
                 )
             }
         }

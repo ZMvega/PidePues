@@ -49,13 +49,18 @@ fun MainScreen(
     restaurantsViewModel: RestaurantsViewModel,
     cartViewModel: CartViewModel,
     sessionViewModel: SessionViewModel,
+    ordersViewModel: OrdersViewModel,
     onOpenFilters: () -> Unit,
     onOpenRestaurant: (Int) -> Unit,
+    onCheckout: () -> Unit,
+    onOpenOrders: () -> Unit,
+    onOpenOrderTracking: (String) -> Unit,
     onLogout: () -> Unit
 ) {
     // Estando en otra pestaña, "atrás" vuelve a Inicio antes de salir de la app
     BackHandler(enabled = tab != MainTab.HOME) { onTabChange(MainTab.HOME) }
     val cart by cartViewModel.state.collectAsStateWithLifecycle()
+    val orders by ordersViewModel.state.collectAsStateWithLifecycle()
 
     Scaffold(
         containerColor = ScreenBg,
@@ -101,7 +106,9 @@ fun MainScreen(
                     sessionViewModel = sessionViewModel,
                     onSearchClick = { onTabChange(MainTab.SEARCH) },
                     onFiltersClick = onOpenFilters,
-                    onRestaurantClick = onOpenRestaurant
+                    onRestaurantClick = onOpenRestaurant,
+                    activeOrder = orders.active.firstOrNull(),
+                    onActiveOrderClick = onOpenOrderTracking
                 )
                 MainTab.SEARCH -> SearchScreen(
                     restaurantsViewModel = restaurantsViewModel,
@@ -110,10 +117,12 @@ fun MainScreen(
                 )
                 MainTab.CART -> CartScreen(
                     cartViewModel = cartViewModel,
-                    onExplore = { onTabChange(MainTab.HOME) }
+                    onExplore = { onTabChange(MainTab.HOME) },
+                    onCheckout = onCheckout
                 )
                 MainTab.PROFILE -> ProfileScreen(
                     sessionViewModel = sessionViewModel,
+                    onOpenOrders = onOpenOrders,
                     onLogout = onLogout
                 )
             }

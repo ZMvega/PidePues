@@ -38,22 +38,27 @@ fun AppTextField(
     autoCorrect: Boolean = true,
     isPassword: Boolean = false,
     imeAction: ImeAction = ImeAction.Next,
-    onImeAction: (() -> Unit)? = null
+    onImeAction: (() -> Unit)? = null,
+    singleLine: Boolean = true,
+    minLines: Int = 1
 ) {
     val focusManager = LocalFocusManager.current
     Column(modifier) {
-        Text(
-            text = label,
-            fontSize = 14.sp,
-            fontWeight = FontWeight.Medium,
-            color = InkSoft,
-            modifier = Modifier.padding(bottom = 8.dp)
-        )
+        if (label.isNotEmpty()) {
+            Text(
+                text = label,
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Medium,
+                color = InkSoft,
+                modifier = Modifier.padding(bottom = 8.dp)
+            )
+        }
         OutlinedTextField(
             value = value,
             onValueChange = onValueChange,
             modifier = Modifier.fillMaxWidth(),
-            singleLine = true,
+            singleLine = singleLine,
+            minLines = minLines,
             placeholder = { Text(placeholder, color = Hint, fontSize = 15.sp) },
             isError = error != null,
             shape = RoundedCornerShape(14.dp),

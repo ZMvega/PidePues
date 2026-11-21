@@ -228,4 +228,98 @@
     <string name="summary_total">Total</string>
     <string name="checkout_format">Continuar con el pedido · %1$s</string>
     <string name="checkout_coming_soon">La confirmación del pedido llega en la semana 8</string>
+
+    <!-- ===== Semana 8: pedidos (dirección, pago, confirmación, seguimiento, historial) ===== -->
+    <string name="summary_service">Cargo por servicio</string>
+    <string name="order_error">No pudimos crear tu pedido. Inténtalo de nuevo.</string>
+    <string name="address_error">No pudimos guardar la dirección. Inténtalo de nuevo.</string>
+
+    <string name="status_received">Pedido confirmado</string>
+    <string name="status_preparing">Preparando tu pedido</string>
+    <string name="status_on_the_way">En camino</string>
+    <string name="status_delivered">Entregado</string>
+
+    <string name="address_title">Dirección de entrega</string>
+    <string name="address_current_title">Tu ubicación actual</string>
+    <string name="address_current_device">Ubicación detectada por el GPS</string>
+    <string name="address_current_default">El Poblado, Medellín (ubicación por defecto)</string>
+    <string name="address_current_text">Ubicación actual (GPS)</string>
+    <string name="address_saved_title">Direcciones guardadas</string>
+    <string name="address_saved_empty">Aún no tienes direcciones guardadas</string>
+    <string name="address_add">Agregar nueva dirección</string>
+    <string name="address_add_title">Nueva dirección</string>
+    <string name="address_name_label">Nombre (ej. Casa, Oficina)</string>
+    <string name="address_name_hint">Casa</string>
+    <string name="address_text_label">Dirección</string>
+    <string name="address_text_hint">Cra 43A #1-50, apto 301</string>
+    <string name="address_save">Guardar</string>
+    <string name="address_required">Completa el nombre y la dirección</string>
+    <string name="address_instructions_title">Instrucciones de entrega</string>
+    <string name="address_optional">Opcional</string>
+    <string name="address_instructions_hint">Ej: portería, piso 3, tocar el timbre…</string>
+    <string name="address_confirm">Confirmar dirección</string>
+    <string name="cd_map_illustration">Mapa de la zona de entrega</string>
+
+    <string name="payment_title">Método de pago</string>
+    <string name="payment_summary_title">Resumen del pedido</string>
+    <string name="payment_choose">Selecciona cómo pagarás</string>
+    <string name="pay_card_title">Tarjeta de crédito o débito</string>
+    <string name="pay_card_subtitle">Datáfono al recibir tu pedido</string>
+    <string name="pay_nequi_title">Nequi</string>
+    <string name="pay_nequi_subtitle">Transferencia al repartidor · %1$s</string>
+    <string name="pay_daviplata_title">Daviplata</string>
+    <string name="pay_daviplata_subtitle">Transferencia al repartidor · %1$s</string>
+    <string name="pay_cash_title">Efectivo</string>
+    <string name="pay_cash_subtitle">Pagas al repartidor</string>
+    <string name="payment_note">Por ahora el pago se coordina al recibir tu pedido: la app no hace ningún cobro ni guarda datos bancarios. Los pagos en línea llegarán más adelante.</string>
+    <string name="payment_confirm_format">Confirmar pedido · %1$s</string>
+
+    <string name="confirmed_title">¡Pedido confirmado!</string>
+    <string name="confirmed_subtitle">Ya avisamos al restaurante 🚀</string>
+    <string name="order_number_label">NÚMERO DE PEDIDO</string>
+    <string name="label_restaurant">Restaurante</string>
+    <string name="label_eta">Tiempo estimado</string>
+    <string name="label_address">Dirección de entrega</string>
+    <string name="label_payment">Método de pago</string>
+    <string name="btn_track">Seguir mi pedido en vivo</string>
+    <string name="btn_home">Volver al inicio</string>
+    <string name="eta_minutes_format">%1$d min</string>
+
+    <string name="tracking_title">Seguimiento</string>
+    <string name="tracking_arrives_in">Llega en %1$d min</string>
+    <string name="tracking_progress_title">Progreso del pedido</string>
+    <string name="tracking_in_progress">En progreso…</string>
+    <string name="tracking_sub_received">Esperando que el restaurante empiece</string>
+    <string name="tracking_sub_preparing">El restaurante está cocinando tu pedido</string>
+    <string name="tracking_sub_on_the_way">Tu pedido va hacia tu dirección</string>
+    <string name="tracking_sub_delivered">¡Buen provecho!</string>
+    <string name="step_received_desc">Tu pedido fue recibido</string>
+    <string name="step_preparing_desc">El restaurante está cocinando</string>
+    <string name="step_on_the_way_desc">Tu repartidor lleva el pedido</string>
+    <string name="step_on_the_way_desc_named">%1$s está llevando tu pedido</string>
+    <string name="step_delivered_desc">¡Buen provecho!</string>
+    <string name="tracking_driver_subtitle">Tu repartidor · ⭐ %1$s</string>
+    <string name="btn_call">Llamar</string>
+    <string name="btn_chat">Chat</string>
+    <string name="contact_soon">El contacto con el repartidor estará disponible más adelante</string>
+    <string name="btn_rate">¡Calificar pedido! ⭐</string>
+    <string name="rate_soon">Las calificaciones llegan en la semana 9</string>
+    <string name="debug_next_status">Simular siguiente estado (solo pruebas)</string>
+    <string name="simulate_error">No se pudo actualizar el estado</string>
+    <string name="order_summary_title">Resumen del pedido</string>
+
+    <string name="orders_title">Mis pedidos</string>
+    <string name="orders_tab_active">🚀 En curso</string>
+    <string name="orders_tab_history">📋 Historial</string>
+    <string name="orders_empty_active">No tienes pedidos en curso</string>
+    <string name="orders_empty_history">Aún no tienes pedidos entregados</string>
+    <string name="orders_footer">Toca para ver el seguimiento en vivo</string>
+    <string name="orders_load_error">No pudimos cargar tus pedidos</string>
+    <plurals name="order_dishes">
+        <item quantity="one">%1$d plato</item>
+        <item quantity="other">%1$d platos</item>
+    </plurals>
+
+    <string name="home_active_order_title">Tienes un pedido en curso</string>
+    <string name="home_active_order_cta">Seguir</string>
 </resources>

@@ -22,7 +22,8 @@ class Cart {
     val itemCount: Int get() = quantities.values.sumOf { it.quantity }
     val subtotal: Int get() = quantities.values.sumOf { it.total }
     val deliveryFee: Int get() = if (quantities.isEmpty()) 0 else restaurant?.deliveryFee ?: 0
-    val total: Int get() = subtotal + deliveryFee
+    val serviceFee: Int get() = if (quantities.isEmpty()) 0 else SERVICE_FEE
+    val total: Int get() = subtotal + deliveryFee + serviceFee
     val isEmpty: Boolean get() = quantities.isEmpty()
 
     fun quantityOf(itemId: String): Int = quantities[itemId]?.quantity ?: 0
@@ -58,4 +59,10 @@ class Cart {
         quantities.clear()
         restaurant = null
     }
+
+    companion object {
+        /** Cargo por servicio de PidePues por pedido (en pesos). */
+        const val SERVICE_FEE = 1000
+    }
 }
+

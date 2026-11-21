@@ -1,7 +1,6 @@
 package co.edu.udea.compumovil.labs20262_gr08.pidepues.ui.profile
 
 import androidx.compose.foundation.*
-import androidx.compose.foundation.interaction.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.*
 import androidx.compose.foundation.shape.*
@@ -54,6 +53,7 @@ private val supportOptions = listOf(
 @Composable
 fun ProfileScreen(
     sessionViewModel: SessionViewModel,
+    onOpenOrders: () -> Unit,
     onLogout: () -> Unit
 ) {
     StatusBarAppearance(darkIcons = true)
@@ -197,7 +197,9 @@ fun ProfileScreen(
             }
 
             SectionLabel(stringResource(R.string.section_account))
-            OptionsCard(accountOptions)
+            OptionsCard(accountOptions, onOptionClick = { opt ->
+                if (opt.title == R.string.opt_history_title) onOpenOrders()
+            })
             SectionLabel(stringResource(R.string.section_preferences))
             OptionsCard(preferenceOptions)
             SectionLabel(stringResource(R.string.section_support))
@@ -262,7 +264,10 @@ private fun StatTile(emoji: String, value: String, label: String, modifier: Modi
 }
 
 @Composable
-private fun OptionsCard(options: List<ProfileOption>) {
+private fun OptionsCard(
+    options: List<ProfileOption>,
+    onOptionClick: ((ProfileOption) -> Unit)? = null
+) {
     AppCard(Modifier.fillMaxWidth()) {
         Column {
             options.forEachIndexed { index, option ->
@@ -270,7 +275,7 @@ private fun OptionsCard(options: List<ProfileOption>) {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .clickable { }
+                        .clickable { onOptionClick?.invoke(option) }
                         .padding(horizontal = 16.dp, vertical = 14.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
