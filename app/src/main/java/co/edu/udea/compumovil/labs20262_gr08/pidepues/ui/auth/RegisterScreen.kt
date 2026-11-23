@@ -45,6 +45,11 @@ fun RegisterScreen(
     var phone by rememberSaveable { mutableStateOf("") }
     var password by rememberSaveable { mutableStateOf("") }
     var role by rememberSaveable { mutableStateOf(UserRole.CLIENT) }
+    var documentType by rememberSaveable { mutableStateOf("CC") }
+    var documentNumber by rememberSaveable { mutableStateOf("") }
+    var vehicleType by rememberSaveable { mutableStateOf("Moto") }
+    var vehiclePlate by rememberSaveable { mutableStateOf("") }
+    var plateError by remember { mutableStateOf<String?>(null) }
     var acceptedTerms by rememberSaveable { mutableStateOf(false) }
 
     var nameError by remember { mutableStateOf<String?>(null) }
@@ -70,10 +75,17 @@ fun RegisterScreen(
         emailError = if (Validators.isValidEmail(email)) null else errorEmail
         phoneError = if (Validators.isValidPhone(phone)) null else errorPhone
         passwordError = if (Validators.isValidPassword(password)) null else errorPassword
-        val valid = nameError == null && emailError == null && phoneError == null && passwordError == null
+        val needsPlate = role == UserRole.DELIVERY && vehicleType != "Bicicleta"
+        plateError = if (needsPlate && vehiclePlate.trim().length < 5) "Ingresa la placa (ej. ABC 123)" else null
+        val valid = nameError == null && emailError == null && phoneError == null && passwordError == null && plateError == null
         if (valid) {
-            authViewModel.register(fullName, email, phone, password, role, onRegistered)
+            authViewModel.register(
+                fullName, email, phone, password, role,
+                documentType, documentNumber, vehicleType, vehiclePlate,
+                onRegistered
+            )
         }
+
     }
 
     // "Términos de servicio" y "Política de privacidad" resaltados en naranja
@@ -176,6 +188,54 @@ fun RegisterScreen(
             PidePuesChip(stringResource(R.string.role_client), role == UserRole.CLIENT, { role = UserRole.CLIENT })
             PidePuesChip(stringResource(R.string.role_restaurant), role == UserRole.RESTAURANT, { role = UserRole.RESTAURANT })
             PidePuesChip(stringResource(R.string.role_delivery), role == UserRole.DELIVERY, { role = UserRole.DELIVERY })
+        }
+        if (role == UserRole.DELIVERY) {
+            Text(
+                text = "Documento de identidad",
+                color = InkSoft,
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Medium,
+                modifier = Modifier.padding(top = 16.dp, bottom = 8.dp)
+            )
+            FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                listOf("CC", "CE", "Pasaporte").forEach { type ->
+                    PidePuesChip(type, documentType == type, { documentType = type })
+                }
+            }
+            AppTextField(
+                label = "",
+                value = documentNumber,
+                onValueChange = { documentNumber = it },
+                placeholder = "Número de documento",
+                keyboardType = KeyboardType.Number,
+                modifier = Modifier.padding(top = 8.dp)
+            )
+
+            Text(
+                text = "Medio de transporte",
+                color = InkSoft,
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Medium,
+                modifier = Modifier.padding(top = 16.dp, bottom = 8.dp)
+            )
+            FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                listOf("Moto", "Bicicleta", "Carro").forEach { type ->
+                    PidePuesChip(type, vehicleType == type, { vehicleType = type })
+                }
+            }
+
+            if (vehicleType != "Bicicleta") {
+                AppTextField(
+                    label = "Placa del vehículo",
+                    value = vehiclePlate,
+                    onValueChange = { vehiclePlate = it.uppercase() },
+                    placeholder = "ABC 123",
+                    error = plateError,
+                    capitalization = KeyboardCapitalization.Characters,
+                    autoCorrect = false,
+                    modifier = Modifier.padding(top = 12.dp)
+                )
+            }
         }
 
         Row(

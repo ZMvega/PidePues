@@ -28,6 +28,10 @@ object AuthRepository {
         phone: String,
         password: String,
         role: UserRole,
+        documentType: String = "CC",
+        documentNumber: String = "",
+        vehicleType: String = "Moto",
+        vehiclePlate: String = "",
         onResult: (Result<UserProfile>) -> Unit
     ) {
         auth.createUserWithEmailAndPassword(email.trim(), password)
@@ -42,15 +46,25 @@ object AuthRepository {
                     fullName = fullName.trim(),
                     email = email.trim(),
                     phone = Validators.normalizePhone(phone),
-                    role = role
+                    role = role,
+                    documentType = documentType,
+                    documentNumber = documentNumber.trim(),
+                    vehicleType = vehicleType,
+                    vehiclePlate = vehiclePlate.trim().uppercase()
                 )
-                val data = hashMapOf(
+                val data = hashMapOf<String, Any>(
                     "fullName" to profile.fullName,
                     "email" to profile.email,
                     "phone" to profile.phone,
                     "role" to role.key,
                     "createdAt" to FieldValue.serverTimestamp()
                 )
+                if (role == UserRole.DELIVERY) {
+                    data["documentType"] = profile.documentType
+                    data["documentNumber"] = profile.documentNumber
+                    data["vehicleType"] = profile.vehicleType
+                    data["vehiclePlate"] = profile.vehiclePlate
+                }
                 db.collection(USERS).document(user.uid).set(data)
                     .addOnSuccessListener { onResult(Result.success(profile)) }
                     .addOnFailureListener { error ->
@@ -88,7 +102,11 @@ object AuthRepository {
                             fullName = doc.getString("fullName").orEmpty(),
                             email = doc.getString("email") ?: user.email.orEmpty(),
                             phone = doc.getString("phone").orEmpty(),
-                            role = UserRole.fromKey(doc.getString("role"))
+                            role = UserRole.fromKey(doc.getString("role")),
+                            documentType = doc.getString("documentType") ?: "CC",
+                            documentNumber = doc.getString("documentNumber").orEmpty(),
+                            vehicleType = doc.getString("vehicleType") ?: "Moto",
+                            vehiclePlate = doc.getString("vehiclePlate").orEmpty()
                         )
                     )
                 )
