@@ -47,10 +47,17 @@ class AuthViewModel : ViewModel() {
         phone: String,
         password: String,
         role: UserRole,
+        documentType: String = "CC",
+        documentNumber: String = "",
+        vehicleType: String = "Moto",
+        vehiclePlate: String = "",
         onSuccess: (UserProfile) -> Unit
     ) {
         _state.value = UiState(isLoading = true)
-        AuthRepository.register(fullName, email, phone, password, role) { result ->
+        AuthRepository.register(
+            fullName, email, phone, password, role,
+            documentType, documentNumber, vehicleType, vehiclePlate
+        ) { result ->
             val profile = result.getOrNull()
             if (profile != null) {
                 _state.value = UiState()

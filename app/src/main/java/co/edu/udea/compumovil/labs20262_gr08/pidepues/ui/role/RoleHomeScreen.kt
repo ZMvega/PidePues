@@ -25,56 +25,66 @@ fun RoleHomeScreen(
     sessionViewModel: SessionViewModel,
     onLogout: () -> Unit,
 ) {
-    if (role == UserRole.RESTAURANT) {
-        val dashboardViewModel: RestaurantDashboardViewModel = viewModel()
-        RestaurantDashboardScreen(
-            sessionViewModel = sessionViewModel,
-            dashboardViewModel = dashboardViewModel,
-            onLogout = onLogout,
-        )
-        return
-    }
+    when (role) {
+        UserRole.RESTAURANT -> {
+            val dashboardViewModel: RestaurantDashboardViewModel = viewModel()
+            RestaurantDashboardScreen(
+                sessionViewModel = sessionViewModel,
+                dashboardViewModel = dashboardViewModel,
+                onLogout = onLogout,
+            )
+        }
+        UserRole.DELIVERY -> {
+            val deliveryViewModel: DeliveryDashboardViewModel = viewModel()
+            DeliveryDashboardScreen(
+                sessionViewModel = sessionViewModel,
+                deliveryViewModel = deliveryViewModel,
+                onLogout = onLogout,
+            )
+        }
+        UserRole.CLIENT -> {
+            StatusBarAppearance(darkIcons = true)
+            val profile by sessionViewModel.profile.collectAsStateWithLifecycle()
 
-    StatusBarAppearance(darkIcons = true)
-    val profile by sessionViewModel.profile.collectAsStateWithLifecycle()
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color.White)
-            .statusBarsPadding()
-            .navigationBarsPadding()
-            .padding(32.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
-    ) {
-        Text(text = "🛵", fontSize = 72.sp)
-        Text(
-            text = stringResource(R.string.role_home_delivery_title),
-            color = Ink,
-            fontSize = 30.sp,
-            fontWeight = FontWeight.Bold,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.padding(top = 16.dp),
-        )
-        Text(
-            text = profile?.fullName.orEmpty(),
-            color = Primary,
-            fontSize = 16.sp,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(top = 8.dp),
-        )
-        Text(
-            text = stringResource(R.string.role_home_delivery_subtitle),
-            color = Muted,
-            fontSize = 14.sp,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.padding(top = 12.dp),
-        )
-        OutlinedActionButton(
-            text = stringResource(R.string.profile_logout),
-            onClick = onLogout,
-            modifier = Modifier.padding(top = 32.dp),
-        )
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(Color.White)
+                    .statusBarsPadding()
+                    .navigationBarsPadding()
+                    .padding(32.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center,
+            ) {
+                Text(text = "🛵", fontSize = 72.sp)
+                Text(
+                    text = stringResource(R.string.role_home_delivery_title),
+                    color = Ink,
+                    fontSize = 30.sp,
+                    fontWeight = FontWeight.Bold,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.padding(top = 16.dp),
+                )
+                Text(
+                    text = profile?.fullName.orEmpty(),
+                    color = Primary,
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(top = 8.dp),
+                )
+                Text(
+                    text = stringResource(R.string.role_home_delivery_subtitle),
+                    color = Muted,
+                    fontSize = 14.sp,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.padding(top = 12.dp),
+                )
+                OutlinedActionButton(
+                    text = stringResource(R.string.profile_logout),
+                    onClick = onLogout,
+                    modifier = Modifier.padding(top = 32.dp),
+                )
+            }
+        }
     }
 }

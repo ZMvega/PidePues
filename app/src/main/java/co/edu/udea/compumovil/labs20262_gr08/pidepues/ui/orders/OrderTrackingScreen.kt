@@ -39,7 +39,8 @@ fun OrderTrackingScreen(
     orderId: String,
     ordersViewModel: OrdersViewModel,
     isDebug: Boolean,
-    onBack: () -> Unit
+    onBack: () -> Unit,
+    onRate: () -> Unit
 ) {
     StatusBarAppearance(darkIcons = true)
     val context = LocalContext.current
@@ -256,13 +257,13 @@ fun OrderTrackingScreen(
 
         // Acciones fijas abajo
         val canSimulate = isDebug && order.status.next() != null
-        val delivered = order.status == OrderStatus.ENTREGADO
-        if (canSimulate || delivered) {
+        val canRate = order.status == OrderStatus.ENTREGADO && !order.rated
+        if (canSimulate || canRate) {
             BottomActionBar {
-                if (delivered) {
+                if (canRate) {
                     PrimaryButton(
                         text = stringResource(R.string.btn_rate),
-                        onClick = { Toast.makeText(context, rateSoon, Toast.LENGTH_SHORT).show() }
+                        onClick = onRate
                     )
                 }
                 if (canSimulate) {

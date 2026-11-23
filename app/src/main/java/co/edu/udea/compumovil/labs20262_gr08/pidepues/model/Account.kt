@@ -16,7 +16,11 @@ data class UserProfile(
     val fullName: String,
     val email: String,
     val phone: String,
-    val role: UserRole
+    val role: UserRole,
+    val documentType: String = "CC",
+    val documentNumber: String = "",
+    val vehicleType: String = "Moto",
+    val vehiclePlate: String = ""
 ) {
     val firstName: String get() = fullName.trim().substringBefore(" ")
 

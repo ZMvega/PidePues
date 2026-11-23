@@ -159,7 +159,11 @@ object RestaurantRepository {
             longitude = point.longitude,
             emoji = getString("emoji").orEmpty(),
             isOpen = getBoolean("isOpen") ?: true,
-            keywords = getString("keywords").orEmpty()
+            keywords = getString("keywords").orEmpty(),
+            reviewCount = getLong("reviewCount")?.toInt() ?: 0,
+            description = getString("description").orEmpty(),
+            address = getString("address") ?: getString("direccion") ?: "El Poblado, Medellín",
+            minOrder = getLong("minOrder")?.toInt() ?: 15000
         )
     }
 

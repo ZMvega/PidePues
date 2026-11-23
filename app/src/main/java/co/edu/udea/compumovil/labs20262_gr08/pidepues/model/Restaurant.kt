@@ -32,7 +32,11 @@ data class Restaurant(
     val emoji: String,
     val isOpen: Boolean = true,
     /** Palabras extra para que la búsqueda lo encuentre (ej. "comida saludable"). */
-    val keywords: String = ""
+    val keywords: String = "",
+    val reviewCount: Int = 0,
+    val description: String = "",
+    val address: String = "El Poblado, Medellín",
+    val minOrder: Int = 15000
 )
 
 data class UserLocation(

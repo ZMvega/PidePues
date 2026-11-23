@@ -38,19 +38,20 @@ object RestaurantRanking {
             )
         }
 
-    /**aplica los filtros (distancia, calificación, tipo de cocina) y el orden elegido */
+    /** Aplica los filtros (distancia, calificación, tipo de cocina) y el orden elegido. */
     fun filterAndSort(
         items: List<RestaurantWithDistance>,
-        filters: RestaurantFilters
+        filters: RestaurantFilters,
+        preferences: UserPreferences = UserPreferences()
     ): List<RestaurantWithDistance> {
         val filtered = items.filter {
             it.distanceKm <= filters.maxDistanceKm &&
-                it.restaurant.rating >= filters.minRating &&
-                (filters.categories.isEmpty() || it.restaurant.category in filters.categories)
+                    it.restaurant.rating >= filters.minRating &&
+                    (filters.categories.isEmpty() || it.restaurant.category in filters.categories)
         }
         val byOption: Comparator<RestaurantWithDistance> = when (filters.sort) {
             SortOption.RECOMMENDED -> compareByDescending {
-                recommendationScore(it.restaurant.rating, it.distanceKm)
+                RecommendationEngine.score(it.restaurant, it.distanceKm, preferences)
             }
             SortOption.NEAREST -> compareBy { it.distanceKm }
             SortOption.BEST_RATED -> compareByDescending<RestaurantWithDistance> { it.restaurant.rating }
