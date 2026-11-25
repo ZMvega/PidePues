@@ -86,10 +86,13 @@ object DeliveryRepository {
             ?: getLong("createdAt")
             ?: System.currentTimeMillis()
 
+        val parsedRestaurantId = get("restaurantId")?.toString().orEmpty()
+        val parsedOrderNumber = get("orderNumber")?.toString() ?: id.take(4).uppercase()
+
         return DeliveryOrder(
             id = id,
-            orderNumber = getString("orderNumber") ?: id.take(4).uppercase(),
-            restaurantId = getString("restaurantId") ?: getLong("restaurantId")?.toString() ?: "",
+            orderNumber = parsedOrderNumber,
+            restaurantId = parsedRestaurantId,
             restaurantName = restaurantName,
             pickupAddress = getString("pickupAddress") ?: "Cra 43A #7-50, El Poblado",
             deliveryAddress = getString("address") ?: getString("customerAddress") ?: "El Poblado, Medellín",
